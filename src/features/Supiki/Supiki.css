@@ -1,7 +1,2 @@
-.supiki-page {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
-}
+/* Supikiコンポーネント用のCSSは現在使用されていません */
+/* 必要に応じてコンテナスタイルを追加してください */

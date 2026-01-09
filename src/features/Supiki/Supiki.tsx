@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Supiki } from '../../shared/ui';
-import { useSupikiMovement, useSupikiVoice, createInitialSupiki } from '../../features/supiki';
-import type { SupikiState } from '../../features/supiki';
-import './SupikiPage.css';
+import { SupikiModel } from './SupikiModel/SupikiModel';
+import { useSupikiMovement } from './SupikiProcess/useSupikiMovement';
+import { useSupikiVoice } from './SupikiProcess/useSupikiVoice';
+import type { SupikiState } from './SupikiProcess/types';
+import './Supiki.css';
 
-export const SupikiPage: React.FC = () => {
+// 初期Supikiを作成するヘルパー関数
+const createInitialSupiki = (): SupikiState => {
+  const size = 100;
+  const x = typeof window !== 'undefined'
+    ? Math.random() * (window.innerWidth - size)
+    : 0;
+  const y = typeof window !== 'undefined'
+    ? Math.random() * (window.innerHeight - size)
+    : 0;
+
+  return {
+    id: 1,
+    x,
+    y,
+    direction: 'right',
+    targetX: x,
+    targetY: y,
+    animationDelay: Math.random() * 1.5,
+    nextTargetTime: Date.now() + 2000 + Math.random() * 2000,
+    isMoving: false,
+  };
+};
+
+export const Supiki: React.FC = () => {
   const [initialSupikis, setInitialSupikis] = useState<SupikiState[]>([]);
   const [isReady, setIsReady] = useState(false);
 
@@ -15,17 +39,17 @@ export const SupikiPage: React.FC = () => {
   }, []);
 
   if (!isReady) {
-    return <div className="supiki-page" />;
+    return null;
   }
 
-  return <SupikiPageContent initialSupikis={initialSupikis} />;
+  return <SupikiContent initialSupikis={initialSupikis} />;
 };
 
-interface SupikiPageContentProps {
+interface SupikiContentProps {
   initialSupikis: SupikiState[];
 }
 
-const SupikiPageContent: React.FC<SupikiPageContentProps> = ({ initialSupikis }) => {
+const SupikiContent: React.FC<SupikiContentProps> = ({ initialSupikis }) => {
   const { supikis, addSupiki } = useSupikiMovement(initialSupikis);
   const { playVoice } = useSupikiVoice();
 
@@ -38,16 +62,19 @@ const SupikiPageContent: React.FC<SupikiPageContentProps> = ({ initialSupikis })
   };
 
   return (
-    <div className="supiki-page">
+    <>
       {supikis.map(supiki => (
-        <Supiki
+        <SupikiModel
           key={supiki.id}
           x={supiki.x}
           y={supiki.y}
           direction={supiki.direction}
+          isMoving={supiki.isMoving}
           onClick={() => handleSupikiClick(supiki)}
         />
       ))}
-    </div>
+    </>
   );
 };
+
+export default Supiki;

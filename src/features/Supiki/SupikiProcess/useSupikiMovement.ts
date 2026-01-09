@@ -2,7 +2,18 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import type { SupikiState } from './types';
 
 const SPEED = 1.5;
-const DIRECTION_CHANGE_INTERVAL = 3000; // 3秒ごとに方向変更の可能性
+const DIRECTION_CHANGE_INTERVAL_MIN = 2000; // 最小2秒
+const DIRECTION_CHANGE_INTERVAL_MAX = 4000; // 最大4秒
+
+// ランダムな次回ターゲット変更時刻を生成
+const getNextTargetTime = () => {
+  return Date.now() + DIRECTION_CHANGE_INTERVAL_MIN + Math.random() * (DIRECTION_CHANGE_INTERVAL_MAX - DIRECTION_CHANGE_INTERVAL_MIN);
+};
+
+// ランダムなアニメーション遅延を生成（0〜1.5秒）
+const getRandomAnimationDelay = () => {
+  return Math.random() * 1.5;
+};
 
 const getRandomPosition = (max: number, size: number) => {
   return Math.random() * (max - size);
@@ -30,9 +41,15 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
   const [supikis, setSupikis] = useState<SupikiState[]>(initialSupikis);
   const nextIdRef = useRef(initialSupikis.length + 1);
 
-  // 新しいターゲットを設定
-  const updateTargets = useCallback(() => {
+  // 個別のタイミングでターゲットを更新
+  const updateTargetsIndividually = useCallback(() => {
+    const now = Date.now();
     setSupikis(prev => prev.map(supiki => {
+      // まだ次の変更時刻になっていない場合はスキップ
+      if (now < supiki.nextTargetTime) {
+        return supiki;
+      }
+
       const size = 100;
       const { targetX, targetY } = getNewTarget(
         supiki.x,
@@ -41,7 +58,12 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
         window.innerHeight,
         size
       );
-      return { ...supiki, targetX, targetY };
+      return {
+        ...supiki,
+        targetX,
+        targetY,
+        nextTargetTime: getNextTargetTime() // 次回の変更時刻を設定
+      };
     }));
   }, []);
 
@@ -54,7 +76,8 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < SPEED) {
-          return supiki;
+          // 目標に到着したら停止
+          return { ...supiki, isMoving: false };
         }
 
         const newX = supiki.x + (dx / distance) * SPEED;
@@ -71,6 +94,7 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
           x: newX,
           y: newY,
           direction: newDirection,
+          isMoving: true,
         };
       }));
     }, 16);
@@ -78,12 +102,11 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
     return () => clearInterval(moveInterval);
   }, []);
 
-  // 定期的に新しいターゲットを設定
+  // 高頻度でチェックし、個別のタイミングでターゲットを更新
   useEffect(() => {
-    const targetInterval = setInterval(updateTargets, DIRECTION_CHANGE_INTERVAL);
-    updateTargets(); // 初回実行
+    const targetInterval = setInterval(updateTargetsIndividually, 100); // 100msごとにチェック
     return () => clearInterval(targetInterval);
-  }, [updateTargets]);
+  }, [updateTargetsIndividually]);
 
   // supikiを追加
   const addSupiki = useCallback((x: number, y: number) => {
@@ -100,6 +123,9 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
         direction: 'right' as const,
         targetX,
         targetY,
+        animationDelay: getRandomAnimationDelay(),
+        nextTargetTime: getNextTargetTime(),
+        isMoving: true,
       }
     ]);
   }, []);
@@ -120,5 +146,8 @@ export const createInitialSupiki = (): SupikiState => {
     direction: 'right',
     targetX,
     targetY,
+    animationDelay: getRandomAnimationDelay(),
+    nextTargetTime: getNextTargetTime(),
+    isMoving: true,
   };
 };

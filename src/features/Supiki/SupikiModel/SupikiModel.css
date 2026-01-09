@@ -1,4 +1,4 @@
-.supiki {
+.supiki-model {
   position: fixed;
   width: 100px;
   height: 100px;
@@ -7,14 +7,18 @@
   transition: transform 0.3s ease;
 }
 
-.supiki-image {
+.supiki-model__image {
   width: 100%;
   height: auto;
-  animation: walking 0.6s ease-in-out infinite;
+}
+
+/* 移動中のみ歩行アニメーションを再生 */
+.supiki-model__image--walking {
+  animation: supiki-model--walking 1.5s ease-in-out infinite;
 }
 
 /* 歩行アニメーション - 縦に縮めたり戻したりして移動を再現 */
-@keyframes walking {
+@keyframes supiki-model--walking {
   0% {
     transform: scaleY(1);
   }
@@ -32,10 +36,10 @@
   }
 }
 
-.supiki:hover {
+.supiki-model:hover {
   filter: brightness(1.1);
 }
 
-.supiki:active {
+.supiki-model:active {
   filter: brightness(0.9);
 }
