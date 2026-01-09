@@ -55,7 +55,7 @@ const SupikiContent: React.FC<SupikiContentProps> = ({ initialSupikis }) => {
 
   const handleSupikiClick = (supiki: SupikiState) => {
     // ボイスを順番に再生（falseで順番、trueでランダム）
-    playVoice(false);
+    playVoice(true);
 
     // 同じ場所から新しいsupikiを追加
     addSupiki(supiki.x, supiki.y);
