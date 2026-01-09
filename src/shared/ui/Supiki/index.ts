@@ -1,1 +1,0 @@
-export { Supiki } from './Supiki';

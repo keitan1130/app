@@ -1,1 +1,0 @@
-export { SupikiPage } from './SupikiPage';
