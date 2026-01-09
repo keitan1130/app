@@ -1,0 +1,41 @@
+.supiki {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.supiki-image {
+  width: 100%;
+  height: auto;
+  animation: walking 0.6s ease-in-out infinite;
+}
+
+/* 歩行アニメーション - 縦に縮めたり戻したりして移動を再現 */
+@keyframes walking {
+  0% {
+    transform: scaleY(1);
+  }
+  25% {
+    transform: scaleY(0.85);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  75% {
+    transform: scaleY(0.85);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.supiki:hover {
+  filter: brightness(1.1);
+}
+
+.supiki:active {
+  filter: brightness(0.9);
+}
