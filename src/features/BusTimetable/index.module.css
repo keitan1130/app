@@ -1,0 +1,225 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  min-height: 100vh;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.toggleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px 20px;
+  background-color: #1a1a1a;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.toggleLabel:hover {
+  border-color: #646cff;
+}
+
+.toggleInput {
+  display: none;
+}
+
+.timeDisplay {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background-color: #1a1a1a;
+  border-radius: 30px;
+  border: 1px solid transparent;
+}
+
+.timeLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.timeValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #646cff;
+  letter-spacing: 0.05em;
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: #444;
+  border-radius: 14px;
+  transition: background 0.3s ease;
+}
+
+.toggleSwitch::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: #888;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.toggleInput:checked + .toggleSwitch {
+  background: #646cff;
+}
+
+.toggleInput:checked + .toggleSwitch::before {
+  transform: translateX(24px);
+  background: white;
+}
+
+.toggleText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.timetableWrapper {
+  display: flex;
+  gap: 24px;
+  height: calc(100vh - 180px);
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.columnTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.87);
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.cardList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px;
+  scroll-behavior: smooth;
+}
+
+.cardList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cardList::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+.cardList::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+.cardList::-webkit-scrollbar-thumb:hover {
+  background: #646cff;
+}
+
+/* ライトモード対応 */
+@media (prefers-color-scheme: light) {
+  .container {
+    background-color: #ffffff;
+    color: #213547;
+  }
+
+  .toggleLabel {
+    background-color: #f9f9f9;
+  }
+
+  .toggleSwitch {
+    background: #ccc;
+  }
+
+  .toggleSwitch::before {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggleText {
+    color: #213547;
+  }
+
+  .timeDisplay {
+    background-color: #f9f9f9;
+  }
+
+  .timeLabel {
+    color: #213547;
+  }
+
+  .timeValue {
+    color: #747bff;
+  }
+
+  .columnTitle {
+    color: #213547;
+    background-color: #f9f9f9;
+  }
+
+  .cardList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .cardList::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+  }
+
+  .cardList::-webkit-scrollbar-thumb:hover {
+    background: #747bff;
+  }
+}
+
+/* スマートフォン対応 */
+@media (max-width: 650px) {
+  .toggleContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .timetableWrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .column {
+    max-height: 50vh;
+  }
+
+  .columnTitle {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+}
