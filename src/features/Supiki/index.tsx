@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { SupikiModel } from './SupikiModel/SupikiModel'
+import { SupikiModel } from './SupikiModel'
 import { useSupikiMovement } from './SupikiProcess/useSupikiMovement'
 import { useSupikiVoice } from './SupikiProcess/useSupikiVoice'
 import type { SupikiState } from './SupikiProcess/types'
-import './Supiki.css'
+import './index.module.css'
 
 // 初期Supikiを作成するヘルパー関数
 const createInitialSupiki = (): SupikiState => {
@@ -72,5 +72,3 @@ const SupikiContent: React.FC<SupikiContentProps> = ({ initialSupikis }) => {
     </>
   )
 }
-
-export default Supiki

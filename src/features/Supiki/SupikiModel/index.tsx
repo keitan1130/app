@@ -1,6 +1,6 @@
 import React from 'react'
 import supikiImage from '@/assets/supiki.png'
-import './SupikiModel.css'
+import './index.module.css'
 
 interface SupikiModelProps {
   x: number
