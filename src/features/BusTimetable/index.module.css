@@ -11,6 +11,8 @@
 .toggleContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 20px;
   margin-bottom: 16px;
 }
 
@@ -32,6 +34,29 @@
 
 .toggleInput {
   display: none;
+}
+
+.timeDisplay {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background-color: #1a1a1a;
+  border-radius: 30px;
+  border: 1px solid transparent;
+}
+
+.timeLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.timeValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #646cff;
+  letter-spacing: 0.05em;
 }
 
 .toggleSwitch {
@@ -98,10 +123,6 @@
   white-space: nowrap;
 }
 
-.stationIcon {
-  font-size: 1.3rem;
-}
-
 .cardList {
   flex: 1;
   overflow-y: auto;
@@ -151,6 +172,18 @@
     color: #213547;
   }
 
+  .timeDisplay {
+    background-color: #f9f9f9;
+  }
+
+  .timeLabel {
+    color: #213547;
+  }
+
+  .timeValue {
+    color: #747bff;
+  }
+
   .columnTitle {
     color: #213547;
     background-color: #f9f9f9;
@@ -171,6 +204,11 @@
 
 /* スマートフォン対応 */
 @media (max-width: 650px) {
+  .toggleContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .timetableWrapper {
     flex-direction: column;
     height: auto;

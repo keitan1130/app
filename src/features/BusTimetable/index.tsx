@@ -77,6 +77,14 @@ const getCurrentTimeInSeconds = (): number => {
   return now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()
 }
 
+// 秒を時刻文字列に変換
+const formatTime = (seconds: number): string => {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const secs = seconds % 60
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+}
+
 // バスデータの型
 type BusSchedule = { departure: number; arrival: number; runsOnReduced: boolean }
 
@@ -100,11 +108,11 @@ export const BusTimetable = () => {
   const iizukaCardRefs = useRef<(HTMLDivElement | null)[]>([])
   const kyutechCardRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // 1分ごとに現在時刻を更新
+  // 1秒ごとに現在時刻を更新
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(getCurrentTimeInSeconds())
-    }, 60000)
+    }, 1000)
     return () => clearInterval(timer)
   }, [])
 
@@ -150,16 +158,19 @@ export const BusTimetable = () => {
           />
           <span className={styles.toggleSwitch}></span>
           <span className={styles.toggleText}>
-            {isReducedService ? '🚧 減便運行中' : '🚌 通常運行'}
+            {isReducedService ? '減便運行' : '通常運行'}
           </span>
         </label>
+        <div className={styles.timeDisplay}>
+          <span className={styles.timeLabel}>現在時刻</span>
+          <span className={styles.timeValue}>{formatTime(currentTime)}</span>
+        </div>
       </div>
 
       <div className={styles.timetableWrapper}>
         {/* 新飯塚駅 → 九州工業大学 */}
         <div className={styles.column}>
           <h2 className={styles.columnTitle}>
-            <span className={styles.stationIcon}>🚉</span>
             新飯塚駅 → 九州工業大学
           </h2>
           <div className={styles.cardList} ref={iizukaListRef}>
@@ -187,7 +198,6 @@ export const BusTimetable = () => {
         {/* 九州工業大学 → 新飯塚駅 */}
         <div className={styles.column}>
           <h2 className={styles.columnTitle}>
-            <span className={styles.stationIcon}>🏫</span>
             九州工業大学 → 新飯塚駅
           </h2>
           <div className={styles.cardList} ref={kyutechListRef}>
