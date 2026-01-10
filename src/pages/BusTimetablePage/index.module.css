@@ -1,13 +1,4 @@
 .page {
   width: 100%;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: #242424;
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: light) {
-  .page {
-    background-color: #ffffff;
-  }
+  height: 100%;
 }
