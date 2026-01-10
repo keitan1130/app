@@ -155,15 +155,6 @@ export const BusTimetable = () => {
         </label>
       </div>
 
-      <div className={styles.buttonContainer}>
-        <button className={styles.scrollButton} onClick={() => scrollToNextBus('iizuka')}>
-          🚌 新飯塚駅発の次のバスへ
-        </button>
-        <button className={styles.scrollButton} onClick={() => scrollToNextBus('kyutech')}>
-          🏫 九工大発の次のバスへ
-        </button>
-      </div>
-
       <div className={styles.timetableWrapper}>
         {/* 新飯塚駅 → 九州工業大学 */}
         <div className={styles.column}>

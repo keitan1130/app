@@ -3,6 +3,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
+  min-height: 100vh;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .toggleContainer {
@@ -17,13 +20,14 @@
   gap: 12px;
   cursor: pointer;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  background-color: #1a1a1a;
   border-radius: 30px;
   transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
 .toggleLabel:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #646cff;
 }
 
 .toggleInput {
@@ -34,7 +38,7 @@
   position: relative;
   width: 52px;
   height: 28px;
-  background: #ccc;
+  background: #444;
   border-radius: 14px;
   transition: background 0.3s ease;
 }
@@ -46,54 +50,25 @@
   left: 3px;
   width: 22px;
   height: 22px;
-  background: white;
+  background: #888;
   border-radius: 50%;
   transition: transform 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .toggleInput:checked + .toggleSwitch {
-  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+  background: #646cff;
 }
 
 .toggleInput:checked + .toggleSwitch::before {
   transform: translateX(24px);
+  background: white;
 }
 
 .toggleText {
   font-size: 1rem;
   font-weight: 600;
-  color: #333;
-}
-
-.buttonContainer {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.scrollButton {
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 24px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.scrollButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-}
-
-.scrollButton:active {
-  transform: translateY(0);
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .timetableWrapper {
@@ -115,10 +90,10 @@
   gap: 8px;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #333;
+  color: rgba(255, 255, 255, 0.87);
   margin-bottom: 16px;
   padding: 12px 16px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  background-color: #1a1a1a;
   border-radius: 12px;
   white-space: nowrap;
 }
@@ -139,21 +114,63 @@
 }
 
 .cardList::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #1a1a1a;
   border-radius: 4px;
 }
 
 .cardList::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #444;
   border-radius: 4px;
 }
 
 .cardList::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #646cff;
+}
+
+/* ライトモード対応 */
+@media (prefers-color-scheme: light) {
+  .container {
+    background-color: #ffffff;
+    color: #213547;
+  }
+
+  .toggleLabel {
+    background-color: #f9f9f9;
+  }
+
+  .toggleSwitch {
+    background: #ccc;
+  }
+
+  .toggleSwitch::before {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggleText {
+    color: #213547;
+  }
+
+  .columnTitle {
+    color: #213547;
+    background-color: #f9f9f9;
+  }
+
+  .cardList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .cardList::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+  }
+
+  .cardList::-webkit-scrollbar-thumb:hover {
+    background: #747bff;
+  }
 }
 
 /* スマートフォン対応 */
-@media (max-width: 768px) {
+@media (max-width: 650px) {
   .timetableWrapper {
     flex-direction: column;
     height: auto;
@@ -166,13 +183,5 @@
   .columnTitle {
     font-size: 0.95rem;
     padding: 10px 12px;
-  }
-
-  .buttonContainer {
-    flex-direction: column;
-  }
-
-  .scrollButton {
-    width: 100%;
   }
 }
