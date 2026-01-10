@@ -38,9 +38,7 @@ export const BusCard = ({ departureTime, arrivalTime, isPast, isNext }: BusCardP
         <span className={styles.departure}>{formatTime(departureTime)}発</span>
         <span className={styles.arrow}>→</span>
         <span className={styles.arrival}>{formatTime(arrivalTime)}着</span>
-        {!isPast && timeUntil && (
-          <span className={styles.until}>{timeUntil}</span>
-        )}
+        {!isPast && timeUntil && <span className={styles.until}>{timeUntil}</span>}
       </div>
     </div>
   )

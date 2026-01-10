@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import reactLogo from '@/assets/react.svg'
 import viteLogo from '/vite.svg'
 import styles from './index.module.css'
 
 export const ViteTemplate = () => {
   const [count, setCount] = useState(0)
+  const navigate = useNavigate()
 
   return (
     <div className={styles.container}>
@@ -23,7 +25,8 @@ export const ViteTemplate = () => {
       <h1 className={styles.title}>Vite + React</h1>
       <div className={styles.card}>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <button onClick={() => navigate('/bus')}>バス時刻表</button>
+
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
