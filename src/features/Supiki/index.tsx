@@ -3,7 +3,6 @@ import { SupikiModel } from './SupikiModel'
 import { useSupikiMovement } from './SupikiProcess/useSupikiMovement'
 import { useSupikiVoice } from './SupikiProcess/useSupikiVoice'
 import type { SupikiState } from './SupikiProcess/types'
-import './index.module.css'
 
 // 初期Supikiを作成するヘルパー関数
 const createInitialSupiki = (): SupikiState => {

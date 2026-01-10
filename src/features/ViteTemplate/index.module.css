@@ -5,7 +5,7 @@
   text-align: center;
 }
 
-.logoContainer {
+.logo-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -22,7 +22,7 @@
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
-.logoReact:hover {
+.logo-react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
@@ -36,7 +36,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .logoReact {
+  .logo-react {
     animation: logo-spin infinite 20s linear;
   }
 }
@@ -50,6 +50,6 @@
   padding: 2em;
 }
 
-.readTheDocs {
+.read-the-docs {
   color: #888;
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import supikiImage from '@/assets/supiki.png'
-import './index.module.css'
+import styles from './index.module.css'
 
 interface SupikiModelProps {
   x: number
@@ -12,12 +12,12 @@ interface SupikiModelProps {
 
 export const SupikiModel: React.FC<SupikiModelProps> = ({ x, y, direction, isMoving, onClick }) => {
   const imageClassName = isMoving
-    ? 'supiki-model__image supiki-model__image--walking'
-    : 'supiki-model__image'
+    ? `${styles['supiki-model__image']} ${styles['supiki-model__image--walking']}`
+    : styles['supiki-model__image']
 
   return (
     <div
-      className="supiki-model"
+      className={styles['supiki-model']}
       style={{
         left: x,
         top: y,
