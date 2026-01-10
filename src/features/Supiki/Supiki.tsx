@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { SupikiModel } from './SupikiModel/SupikiModel';
-import { useSupikiMovement } from './SupikiProcess/useSupikiMovement';
-import { useSupikiVoice } from './SupikiProcess/useSupikiVoice';
-import type { SupikiState } from './SupikiProcess/types';
-import './Supiki.css';
+import React, { useState } from 'react'
+import { SupikiModel } from './SupikiModel/SupikiModel'
+import { useSupikiMovement } from './SupikiProcess/useSupikiMovement'
+import { useSupikiVoice } from './SupikiProcess/useSupikiVoice'
+import type { SupikiState } from './SupikiProcess/types'
+import './Supiki.css'
 
 // 初期Supikiを作成するヘルパー関数
 const createInitialSupiki = (): SupikiState => {
-  const size = 100;
-  const x = typeof window !== 'undefined'
-    ? Math.random() * (window.innerWidth - size)
-    : 0;
-  const y = typeof window !== 'undefined'
-    ? Math.random() * (window.innerHeight - size)
-    : 0;
+  const size = 100
+  const x = typeof window !== 'undefined' ? Math.random() * (window.innerWidth - size) : 0
+  const y = typeof window !== 'undefined' ? Math.random() * (window.innerHeight - size) : 0
 
   return {
     id: 1,
@@ -25,45 +21,45 @@ const createInitialSupiki = (): SupikiState => {
     animationDelay: Math.random() * 1.5,
     nextTargetTime: Date.now() + 2000 + Math.random() * 2000,
     isMoving: false,
-  };
-};
+  }
+}
 
 export const Supiki: React.FC = () => {
-  const [initialSupikis, setInitialSupikis] = useState<SupikiState[]>([]);
-  const [isReady, setIsReady] = useState(false);
+  // クライアントサイドでのみ初期化（遅延初期化を使用）
+  const [initialSupikis] = useState<SupikiState[]>(() => {
+    if (typeof window === 'undefined') {
+      return []
+    }
+    return [createInitialSupiki()]
+  })
 
-  useEffect(() => {
-    // クライアントサイドでのみ初期化
-    setInitialSupikis([createInitialSupiki()]);
-    setIsReady(true);
-  }, []);
-
-  if (!isReady) {
-    return null;
+  // サーバーサイドレンダリング時は何も表示しない
+  if (typeof window === 'undefined' || initialSupikis.length === 0) {
+    return null
   }
 
-  return <SupikiContent initialSupikis={initialSupikis} />;
-};
+  return <SupikiContent initialSupikis={initialSupikis} />
+}
 
 interface SupikiContentProps {
-  initialSupikis: SupikiState[];
+  initialSupikis: SupikiState[]
 }
 
 const SupikiContent: React.FC<SupikiContentProps> = ({ initialSupikis }) => {
-  const { supikis, addSupiki } = useSupikiMovement(initialSupikis);
-  const { playVoice } = useSupikiVoice();
+  const { supikis, addSupiki } = useSupikiMovement(initialSupikis)
+  const { playVoice } = useSupikiVoice()
 
   const handleSupikiClick = (supiki: SupikiState) => {
     // ボイスを順番に再生（falseで順番、trueでランダム）
-    playVoice(true);
+    playVoice(true)
 
     // 同じ場所から新しいsupikiを追加
-    addSupiki(supiki.x, supiki.y);
-  };
+    addSupiki(supiki.x, supiki.y)
+  }
 
   return (
     <>
-      {supikis.map(supiki => (
+      {supikis.map((supiki) => (
         <SupikiModel
           key={supiki.id}
           x={supiki.x}
@@ -74,7 +70,7 @@ const SupikiContent: React.FC<SupikiContentProps> = ({ initialSupikis }) => {
         />
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Supiki;
+export default Supiki

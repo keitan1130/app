@@ -1,19 +1,19 @@
-import React from 'react';
-import supikiImage from '@/assets/supiki.png';
-import './SupikiModel.css';
+import React from 'react'
+import supikiImage from '@/assets/supiki.png'
+import './SupikiModel.css'
 
 interface SupikiModelProps {
-  x: number;
-  y: number;
-  direction: 'left' | 'right';
-  isMoving: boolean;
-  onClick: () => void;
+  x: number
+  y: number
+  direction: 'left' | 'right'
+  isMoving: boolean
+  onClick: () => void
 }
 
 export const SupikiModel: React.FC<SupikiModelProps> = ({ x, y, direction, isMoving, onClick }) => {
   const imageClassName = isMoving
     ? 'supiki-model__image supiki-model__image--walking'
-    : 'supiki-model__image';
+    : 'supiki-model__image'
 
   return (
     <div
@@ -25,11 +25,7 @@ export const SupikiModel: React.FC<SupikiModelProps> = ({ x, y, direction, isMov
       }}
       onClick={onClick}
     >
-      <img
-        src={supikiImage}
-        alt="Supiki"
-        className={imageClassName}
-      />
+      <img src={supikiImage} alt="Supiki" className={imageClassName} />
     </div>
-  );
-};
+  )
+}

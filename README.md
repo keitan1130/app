@@ -1,73 +1,132 @@
-# React + TypeScript + Vite
+# keitan-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 起動方法
 
-Currently, two official plugins are available:
+1. パッケージをインストール
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+npm i
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. ローカルサーバーを起動
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm run dev
+```
+
+3. ローカルサーバーへアクセス
+   http://localhost:5173
+
+## 技術構成
+
+- フレームワーク:Vite + React
+- ルーティング:react router dom
+
+## 開発の始め方
+
+基本的には issue に自分をアサインしてから作業に取り掛かること。
+またその際 project のステータスを to-do から実装中に変更を行うこと。
+また作業が終了し、ブランチがマージされた際には issue のステータスを実装完了に変更し、issue を closed にすること。
+新しく issue を立てて作業にする時も必ず project の追加を忘れないようにすること。
+
+## ブランチ命名規則
+
+ブランチの命名規則は以下のようにすること
+
+```
+接頭辞/issue番号-内容-内容
+```
+
+内容はケバブケースを使用し、接頭辞には以下のような内容を使用すること。
+
+| 接頭辞   | 内容                                                                                                                       |
+| :------- | :------------------------------------------------------------------------------------------------------------------------- |
+| fix      | 既存の機能の問題を修正する場合に使用します。                                                                               |
+| hotfix   | 緊急の変更を追加する場合に使用します。                                                                                     |
+| add      | 新しいファイルや機能を追加する場合に使用します。                                                                           |
+| feat     | 新しい機能やファイルを追加する場合に使用します。                                                                           |
+| update   | 既存の機能に問題がないが、修正を加えたい場合に使用します。                                                                 |
+| change   | 仕様変更により、既存の機能に修正を加えた場合に使用します。                                                                 |
+| refactor | コードを修正し、改善する場合に使用します。                                                                                 |
+| improve  | コードの改善をする場合に使用します。                                                                                       |
+| disable  | 機能を一時的に無効にする場合に使用します。                                                                                 |
+| delete   | ファイルを削除する場合や、機能を削除する場合に使用します。                                                                 |
+| rename   | ファイル名を変更する場合に使用します。                                                                                     |
+| move     | ファイルを移動する場合に使用します。                                                                                       |
+| upgrade  | バージョンをアップグレードする場合に使用します。                                                                           |
+| revert   | 以前のコミットに戻す場合に使用します。                                                                                     |
+| docs     | ドキュメントを修正する場合に使用します。                                                                                   |
+| style    | コーディングスタイルの修正をする場合に使用します。                                                                         |
+| perf     | コードのパフォーマンスを改善する場合に使用します。                                                                         |
+| test     | テストコードを修正する場合や、テストコードを追加する場合に使用します。                                                     |
+| chore    | ビルドツールやライブラリで自動生成されたものをコミットする場合や、上記の接頭辞に当てはまらない修正をする場合に使用します。 |
+
+## コミット命名規則
+
+基本何をやったか分かるような内容であれば構わない。
+余裕があればブランチ命名規則同様に接頭辞を記載すること。
+
+## ディレクトリ構成
+
+```
+src
+├── assets
+│   ├── react.svg
+│   ├── supiki.png
+│   └── supikivoice/
+├── features
+│   └── Supiki
+│       ├── index.ts
+│       ├── Supiki.css
+│       ├── Supiki.tsx
+│       ├── SupikiModel/
+│       │   ├── SupikiModel.css
+│       │   └── SupikiModel.tsx
+│       └── SupikiProcess/
+│           ├── types.ts
+│           ├── useSupikiMovement.ts
+│           └── useSupikiVoice.ts
+├── pages
+│   └── TopPage
+│       ├── index.module.css
+│       └── index.tsx
+├── shared
+│   └── ui
+│       ├── index.ts
+│       └── Card/
+│           ├── index.module.css
+│           └── index.tsx
+├── types
+│   └── audio.d.ts
+├── util
+│   └── index.ts
+├── App.css
+├── App.tsx
+├── index.css
+└── main.tsx
+```
+
+### assets ディレクトリ
+
+ロゴ、ペイロード画像など配置するディレクトリ
+
+### features ディレクトリ
+
+一つの機能としての粒度として切り分けているコンポーネントフォルダ、カスタムフックを用意する場合は今回は features アーキテクチャを採用しているため、features 配下に、/hooks /store などのディレクトリを設けること。feature のコンポーネントのさらに切り分けを行う場合、再利用不可能であると考えられる場合はその feature のフォルダ配下にコンポーネントを作成すること。また再利用可能と考えられる場合は shared ディレクトリに作成すること。
+
+### pages ディレクトリ
+
+page の構成を記述したファイルを格納しておくディレクトリ。
+基本 page で多くの記述は行わず、features の要素を組み合わせ、ページを完成させるようにすること。
+
+### shared ディレクトリ
+
+使い回しができる ui や type を配置しているディレクトリ
+
+### types ディレクトリ
+
+全体で利用できる型の宣言は基本こちらで行うこと、それ以外はそれぞれの作業部分のディレクトリ配下に /type もしくは /store ディレクトリを配置すること
+
+### util ディレクトリ
+
+使い回しができる関数を置いておくディレクトリ。名称が分かりにくくなる可能性があるので、まとめられそうな関数があれば、フォルダ、もしくは同じファイル上に記入を行うなどで対策を行うこと。
