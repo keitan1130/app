@@ -146,6 +146,11 @@ export const BusTimetable = () => {
     scrollToNextBus('kyutech')
   }, [scrollToNextBus])
 
+  useEffect(() => {
+    scrollToNextBus('iizuka')
+    scrollToNextBus('kyutech')
+  }, [scrollToNextBus, isReducedService])
+
   return (
     <div className={styles.container}>
       <div className={styles.toggleContainer}>
