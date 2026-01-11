@@ -2,7 +2,6 @@
   "name": "app",
   "short_name": "app",
   "description": "My App",
-  "start_url": "/app/#/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
