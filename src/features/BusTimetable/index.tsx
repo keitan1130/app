@@ -167,7 +167,9 @@ export const BusTimetable = () => {
       <div className={styles.timetableWrapper}>
         {/* 新飯塚駅 → 九州工業大学 */}
         <div className={styles.column}>
-          <h2 className={styles.columnTitle} onClick={() => scrollToNextBus('iizuka')}>新飯塚駅 → 九州工業大学</h2>
+          <h2 className={styles.columnTitle} onClick={() => scrollToNextBus('iizuka')}>
+            新飯塚駅 → 九州工業大学
+          </h2>
           <div className={styles.cardList} ref={iizukaListRef}>
             {filteredIizuka.map((bus) => {
               const originalIndex = iizukaToKyutech.indexOf(bus)
@@ -192,7 +194,9 @@ export const BusTimetable = () => {
 
         {/* 九州工業大学 → 新飯塚駅 */}
         <div className={styles.column}>
-          <h2 className={styles.columnTitle} onClick={() => scrollToNextBus('kyutech')}>九州工業大学 → 新飯塚駅</h2>
+          <h2 className={styles.columnTitle} onClick={() => scrollToNextBus('kyutech')}>
+            九州工業大学 → 新飯塚駅
+          </h2>
           <div className={styles.cardList} ref={kyutechListRef}>
             {filteredKyutech.map((bus) => {
               const originalIndex = kyutechToIizuka.indexOf(bus)
