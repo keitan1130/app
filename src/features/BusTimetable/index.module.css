@@ -3,7 +3,10 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
-  min-height: 100vh;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   background-color: #242424;
   color: rgba(255, 255, 255, 0.87);
 }
@@ -94,7 +97,8 @@
 .timetableWrapper {
   display: flex;
   gap: 16px;
-  height: calc(100vh - 120px);
+  flex: 1;
+  min-height: 0;
 }
 
 .column {
