@@ -57,6 +57,11 @@
   font-family: monospace;
 }
 
+.until.overdue {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.15);
+}
+
 .card.next .until {
   background: rgba(100, 108, 255, 0.25);
 }
@@ -110,6 +115,11 @@
   .until {
     color: #535bf2;
     background: rgba(116, 123, 255, 0.15);
+  }
+
+  .until.overdue {
+    color: #cc0000;
+    background: rgba(204, 0, 0, 0.15);
   }
 
   .card.next .until {
