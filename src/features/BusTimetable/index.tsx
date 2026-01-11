@@ -97,7 +97,7 @@ const getNextBusIndex = (
   const index = schedule.findIndex(
     (bus) => bus.departure > currentSeconds && (!isReducedService || bus.runsOnReduced)
   )
-  return index === -1 ? schedule.length - 1 : index
+  return index === -1 ? 0 : index
 }
 
 export const BusTimetable = () => {
