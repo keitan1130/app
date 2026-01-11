@@ -158,11 +158,10 @@ export const BusTimetable = () => {
           />
           <span className={styles.toggleSwitch}></span>
           <span className={styles.toggleText}>{isReducedService ? '減便運行' : '通常運行'}</span>
-        </label>
-        <div className={styles.timeDisplay}>
-          <span className={styles.timeLabel}>現在時刻</span>
+          <span className={styles.divider}></span>
+          <span className={styles.timeLabel}>現在</span>
           <span className={styles.timeValue}>{formatTime(currentTime)}</span>
-        </div>
+        </label>
       </div>
 
       <div className={styles.timetableWrapper}>
