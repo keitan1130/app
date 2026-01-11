@@ -120,6 +120,12 @@
   background-color: #1a1a1a;
   border-radius: 10px;
   white-space: nowrap;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+.columnTitle:hover {
+  border-color: #646cff;
 }
 
 .cardList {
