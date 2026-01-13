@@ -221,9 +221,21 @@ function addBusSection(container, title, buses, currentTime, isNextDay = false) 
 
   container.addSpacer(4)
 
+  // 次のバス（まだ出発していない最初のバス）を見つける
+  let nextBusIndex = -1
+  for (let i = 0; i < buses.length; i++) {
+    const remaining = isNextDay
+      ? buses[i].departure + 86400 - currentTime
+      : buses[i].departure - currentTime
+    if (remaining >= 0) {
+      nextBusIndex = i
+      break
+    }
+  }
+
   // バス情報
   buses.forEach((bus, index) => {
-    const isNext = index === 0
+    const isNext = index === nextBusIndex
     const remaining = isNextDay ? bus.departure + 86400 - currentTime : bus.departure - currentTime
     const isPast = remaining < 0
     const departureDate = secondsToDate(bus.departure, isNextDay)
@@ -248,7 +260,7 @@ function addBusSection(container, title, buses, currentTime, isNextDay = false) 
 
     // 発車時刻 + 「発」（過ぎたら薄く）
     const depTime = cardStack.addText(`${formatTimeShort(bus.departure)}発`)
-    depTime.font = Font.boldSystemFont(isNext ? 18 : 15)
+    depTime.font = Font.boldSystemFont(isNext ? 15 : 15)
     depTime.textColor = isPast ? new Color(COLORS.primary, 0.5) : new Color(COLORS.primary)
     depTime.lineLimit = 1
 
