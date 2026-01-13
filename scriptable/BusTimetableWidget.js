@@ -276,8 +276,45 @@ function addBusSection(container, title, buses, currentTime, isNextDay = false) 
   })
 }
 
+// ===== 次回更新時刻を計算 =====
+function calculateNextRefreshDate(currentSeconds) {
+  const allBuses = [...iizukaToKyutech, ...kyutechToIizuka]
+  const filtered = IS_REDUCED_SERVICE ? allBuses.filter((bus) => bus.runsOnReduced) : allBuses
+
+  const refreshTimes = []
+
+  // 各バスに対して「発車1秒後」と「発車5分1秒後」をリストアップ
+  filtered.forEach((bus) => {
+    const afterDeparture = bus.departure + 1 // 発車1秒後
+    const after5Min = bus.departure + 301 // 発車5分1秒後
+
+    if (afterDeparture > currentSeconds) {
+      refreshTimes.push(afterDeparture)
+    }
+    if (after5Min > currentSeconds) {
+      refreshTimes.push(after5Min)
+    }
+  })
+
+  // 一番近い更新時刻を取得
+  if (refreshTimes.length > 0) {
+    refreshTimes.sort((a, b) => a - b)
+    const nextRefreshSeconds = refreshTimes[0]
+    return secondsToDate(nextRefreshSeconds, false)
+  }
+
+  // すべて過ぎている場合は翌日の最初のバスの1秒後
+  const tomorrow = filtered[0].departure + 1
+  return secondsToDate(tomorrow, true)
+}
+
 // ===== メイン処理 =====
 const widget = await createWidget()
+
+// 次回更新時刻を設定iOSはタイミングが保証されない
+const currentTime = getCurrentTimeInSeconds()
+const nextRefresh = calculateNextRefreshDate(currentTime)
+widget.refreshAfterDate = nextRefresh
 
 if (config.runsInWidget) {
   Script.setWidget(widget)
