@@ -1,0 +1,36 @@
+.container {
+  margin: 1.5rem 0;
+}
+
+.button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 1em 2.5em;
+  font-size: 1.1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #646cff;
+  color: white;
+  cursor: pointer;
+  transition:
+    background-color 0.25s,
+    transform 0.1s;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #535bf2;
+  transform: scale(1.02);
+}
+
+.button:disabled {
+  background-color: #3a3a3a;
+  color: #888;
+  cursor: not-allowed;
+}
+
+@media (prefers-color-scheme: light) {
+  .button:disabled {
+    background-color: #ccc;
+    color: #666;
+  }
+}

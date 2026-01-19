@@ -1,7 +1,7 @@
-import { useCallback, useRef } from 'react'
 import voice1 from '@/assets/supikivoice/voice1.m4a'
 import voice2 from '@/assets/supikivoice/voice2.m4a'
 import voice3 from '@/assets/supikivoice/voice3.m4a'
+import { useCallback, useRef } from 'react'
 
 const voices = [voice1, voice2, voice3]
 

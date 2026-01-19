@@ -1,5 +1,5 @@
-import React from 'react'
 import supikiImage from '@/assets/supiki.png'
+import React from 'react'
 import styles from './index.module.css'
 
 interface SupikiModelProps {

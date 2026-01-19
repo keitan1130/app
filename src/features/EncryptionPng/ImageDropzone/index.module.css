@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.dropzone {
+  width: 300px;
+  height: 300px;
+  border: 2px dashed #646cff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    background-color 0.25s;
+  background-color: #1a1a1a;
+  overflow: hidden;
+}
+
+.dropzone:hover {
+  border-color: #535bf2;
+  background-color: rgba(100, 108, 255, 0.1);
+}
+
+.placeholder {
+  text-align: center;
+  color: #888;
+}
+
+.placeholder p {
+  margin: 0.5rem 0;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.input {
+  display: none;
+}
+
+@media (prefers-color-scheme: light) {
+  .title {
+    color: #213547;
+  }
+
+  .dropzone {
+    background-color: #f9f9f9;
+  }
+
+  .dropzone:hover {
+    background-color: rgba(100, 108, 255, 0.1);
+  }
+}

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { SupikiModel } from './SupikiModel'
+import type { SupikiState } from './SupikiProcess/types'
 import { useSupikiMovement } from './SupikiProcess/useSupikiMovement'
 import { useSupikiVoice } from './SupikiProcess/useSupikiVoice'
-import type { SupikiState } from './SupikiProcess/types'
 
 // 初期Supikiを作成するヘルパー関数
 const createInitialSupiki = (): SupikiState => {

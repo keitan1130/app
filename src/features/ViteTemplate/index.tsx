@@ -1,8 +1,8 @@
+import reactLogo from '@/assets/react.svg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import reactLogo from '@/assets/react.svg'
-import viteLogo from '/vite.svg'
 import styles from './index.module.css'
+import viteLogo from '/vite.svg'
 
 export const ViteTemplate = () => {
   const [count, setCount] = useState(0)
@@ -26,7 +26,7 @@ export const ViteTemplate = () => {
       <div className={styles.card}>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <button onClick={() => navigate('/bus')}>バス時刻表</button>
-
+        <button onClick={() => navigate('/png')}>画像暗号化</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

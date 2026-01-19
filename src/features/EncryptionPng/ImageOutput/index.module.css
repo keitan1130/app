@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.outputArea {
+  width: 300px;
+  height: 300px;
+  border: 2px solid #646cff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  overflow: hidden;
+}
+
+.placeholder {
+  text-align: center;
+  color: #888;
+}
+
+.placeholder p {
+  margin: 0.5rem 0;
+}
+
+.outputImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.downloadButton {
+  margin-top: 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.5em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.downloadButton:hover {
+  background-color: #218838;
+}
+
+@media (prefers-color-scheme: light) {
+  .title {
+    color: #213547;
+  }
+
+  .outputArea {
+    background-color: #f9f9f9;
+  }
+}
