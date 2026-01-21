@@ -1,0 +1,15 @@
+.mouse-supiki {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  transform: translate(var(--x), calc(-1 * var(--y)));
+  pointer-events: none;
+  transition: none;
+  z-index: 9999;
+}
+
+.mouse-supiki__image {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
