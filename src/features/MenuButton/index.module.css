@@ -1,0 +1,48 @@
+.menuContainer {
+  position: fixed;
+  top: 1px;
+  left: 1px;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.menuButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* マウス/タッチ時の視覚的なフォーカスリングは非表示にし、キーボード操作時は残す（アクセシビリティ維持） */
+.menuButton:focus {
+  outline: none;
+}
+.menuButton:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+.menuButton:active {
+  outline: none;
+}
+
+/* モバイルのタップハイライトを無効化 */
+.menuButton {
+  -webkit-tap-highlight-color: transparent;
+}
