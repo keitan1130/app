@@ -1,4 +1,4 @@
-import supikiSvg from '@/assets/supiki.png'
+import supikiPng from '@/assets/supiki.png'
 import React, { useEffect, useRef } from 'react'
 import styles from './index.module.css'
 
@@ -70,7 +70,7 @@ export const MouseSupiki: React.FC = () => {
 
   return (
     <div ref={supikiRef} className={styles['mouse-supiki']}>
-      <img src={supikiSvg} alt="Supiki" className={styles['mouse-supiki__image']} />
+      <img src={supikiPng} alt="Supiki" className={styles['mouse-supiki__image']} />
     </div>
   )
 }
