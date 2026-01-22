@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { SUPIKI_CLEAR_EVENT } from './clear'
 import type { SupikiState } from './types'
 
 const SPEED = 1.5
@@ -142,6 +143,17 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
         isMoving: true,
       },
     ])
+  }, [])
+
+  // 外部から全スピキを消すイベントに対応
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const handler = () => {
+      setSupikis([])
+      nextIdRef.current = 1
+    }
+    window.addEventListener(SUPIKI_CLEAR_EVENT, handler)
+    return () => window.removeEventListener(SUPIKI_CLEAR_EVENT, handler)
   }, [])
 
   return { supikis, addSupiki }

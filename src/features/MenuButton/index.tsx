@@ -1,4 +1,5 @@
 import supiki from '@/assets/supiki.png'
+import clearSupikis from '@/features/Supiki/SupikiProcess/clear'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.css'
@@ -45,6 +46,7 @@ export const MenuButton: React.FC = () => {
         <MenuItem onClick={() => navigate('/bus')}>バス時刻表</MenuItem>
         <MenuItem onClick={() => navigate('/png')}>画像暗号化</MenuItem>
         <MenuItem onClick={() => navigate('/supiki')}>スピキ牧場</MenuItem>
+        <MenuItem onClick={() => clearSupikis()}>ｽﾋﾟｷｦｲｼﾞﾒﾇﾝﾃﾞ</MenuItem>
       </MenuPopup>
     </div>
   )
