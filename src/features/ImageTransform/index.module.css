@@ -1,0 +1,102 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5em;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.imageSection {
+  flex: 1;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+.controlSection {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-width: 260px;
+}
+
+.controlCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-align: left;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.select {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #1a1a1a;
+  color: inherit;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+
+.range {
+  width: 100%;
+}
+
+.help {
+  margin-top: 0.5rem;
+  color: #9aa0a6;
+  font-size: 0.9rem;
+}
+
+@media (prefers-color-scheme: light) {
+  .controlCard {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .select {
+    background: #ffffff;
+  }
+}
+
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .controlSection {
+    width: 100%;
+  }
+
+  .imageSection {
+    width: 100%;
+    max-width: 350px;
+  }
+}

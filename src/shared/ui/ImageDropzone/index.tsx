@@ -1,12 +1,27 @@
+import type { ReactNode } from 'react'
 import { useCallback, useRef } from 'react'
 import styles from './index.module.css'
 
 type ImageDropzoneProps = {
   onImageSelect: (file: File) => void
   previewUrl: string | null
+  title?: string
+  placeholder?: ReactNode
 }
 
-export const ImageDropzone = ({ onImageSelect, previewUrl }: ImageDropzoneProps) => {
+const defaultPlaceholder = (
+  <div>
+    <p>ここに画像をドラッグ＆ドロップ</p>
+    <p>または クリックして選択</p>
+  </div>
+)
+
+export const ImageDropzone = ({
+  onImageSelect,
+  previewUrl,
+  title = '入力画像',
+  placeholder = defaultPlaceholder,
+}: ImageDropzoneProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
@@ -51,7 +66,7 @@ export const ImageDropzone = ({ onImageSelect, previewUrl }: ImageDropzoneProps)
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>入力画像</h3>
+      <h3 className={styles.title}>{title}</h3>
       <div
         className={styles.dropzone}
         onDragOver={handleDragOver}
@@ -61,10 +76,7 @@ export const ImageDropzone = ({ onImageSelect, previewUrl }: ImageDropzoneProps)
         {previewUrl ? (
           <img src={previewUrl} alt="Preview" className={styles.preview} />
         ) : (
-          <div className={styles.placeholder}>
-            <p>ここに画像をドラッグ＆ドロップ</p>
-            <p>または クリックして選択</p>
-          </div>
+          <div className={styles.placeholder}>{placeholder}</div>
         )}
         <input
           ref={inputRef}

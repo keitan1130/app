@@ -26,7 +26,6 @@ export const ViteTemplate = () => {
       <div className={styles.card}>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <button onClick={() => navigate('/bus')}>バス時刻表</button>
-        <button onClick={() => navigate('/png')}>画像暗号化</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
