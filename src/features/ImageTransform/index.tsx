@@ -11,9 +11,10 @@ import { applyDotEffect } from './processors/dot'
 import { applyGrayscale } from './processors/grayscale'
 import { applyInvert } from './processors/invert'
 import { applyPixelate } from './processors/pixel'
+import { applyQuantize } from './processors/quantize'
 import { applyXor } from './processors/xor'
 
-type EffectType = 'invert' | 'grayscale' | 'bw' | 'dot' | 'pixel' | 'xor'
+type EffectType = 'invert' | 'grayscale' | 'bw' | 'quantize' | 'dot' | 'pixel' | 'xor'
 
 type EffectOption = {
   value: EffectType
@@ -25,6 +26,7 @@ const effectOptions: EffectOption[] = [
   { value: 'invert', label: 'ネガポジ', description: '色を反転してネガポジ変換します。' },
   { value: 'grayscale', label: 'グレースケール', description: '明度のみの画像に変換します。' },
   { value: 'bw', label: '黒白', description: 'しきい値で白黒の2値化を行います。' },
+  { value: 'quantize', label: '量子化', description: '指定した幅で色を段階化します。' },
   { value: 'dot', label: 'ドット化', description: '明度に応じたドットで描画します。' },
   { value: 'pixel', label: 'ドット絵', description: 'ブロックの平均色でドット絵風にします。' },
   { value: 'xor', label: '画像暗号化', description: 'シード値でXOR変換します。' },
@@ -75,6 +77,9 @@ export const ImageTransform = () => {
   const handleEffectChange = useCallback(
     (value: EffectType) => {
       setEffect(value)
+      if (value === 'quantize') {
+        setThreshold((current) => Math.min(8, Math.max(1, current)))
+      }
       clearOutput()
       setIsEffectMenuOpen(false)
     },
@@ -148,6 +153,8 @@ export const ImageTransform = () => {
         ctx.putImageData(applyGrayscale(imageData), 0, 0)
       } else if (effect === 'bw') {
         ctx.putImageData(applyBlackWhite(imageData, threshold), 0, 0)
+      } else if (effect === 'quantize') {
+        ctx.putImageData(applyQuantize(imageData, threshold), 0, 0)
       } else if (effect === 'xor') {
         const seedValue = parseInt(seed, 10)
         if (Number.isNaN(seedValue)) {
@@ -207,15 +214,21 @@ export const ImageTransform = () => {
               onSelect={handleEffectChange}
             />
 
-            {effect === 'bw' && (
-              <ThresholdControl threshold={threshold} onChange={handleThresholdChange} />
+            {(effect === 'bw' || effect === 'quantize') && (
+              <ThresholdControl
+                threshold={threshold}
+                onChange={handleThresholdChange}
+                label={effect === 'quantize' ? '分割数' : 'しきい値'}
+                min={effect === 'quantize' ? 1 : 0}
+                max={effect === 'quantize' ? 8 : 255}
+              />
             )}
 
             {(effect === 'dot' || effect === 'pixel') && (
               <DotSizeControl
                 dotSize={dotSize}
                 onChange={handleDotSizeChange}
-                label={effect === 'pixel' ? 'ブロックサイズ' : 'ドットサイズ'}
+                label={effect === 'pixel' ? 'ブロックピクセルサイズ' : 'ドットピクセルサイズ'}
                 helpText={
                   effect === 'pixel'
                     ? '大きいほど粗いドット絵になります。'

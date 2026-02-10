@@ -21,8 +21,8 @@ export const DotSizeControl = ({
       <input
         id="dot-range"
         type="range"
-        min={3}
-        max={24}
+        min={1}
+        max={50}
         value={dotSize}
         className={styles.range}
         onChange={(e) => onChange(Number(e.target.value))}
