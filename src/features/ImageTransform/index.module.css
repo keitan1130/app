@@ -6,9 +6,8 @@
 }
 
 .title {
-  font-size: 2.5em;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .description {
@@ -35,33 +34,64 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  min-width: 260px;
+  min-width: 300px;
+}
+
+.controlPanel {
+  width: 300px;
+  height: 300px;
+  border: 2px solid #646cff;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: visible;
 }
 
 .controlCard {
   width: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
+  background: transparent;
+  border: none;
+  padding: 0;
   text-align: left;
 }
 
 .label {
   display: block;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
 }
 
-.select {
+.effectMenu {
+  position: relative;
+  width: 100%;
+}
+
+.effectMenuButton {
   width: 100%;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: #1a1a1a;
   color: inherit;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.effectMenuPopup {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  z-index: 5;
+  width: fit-content;
+  min-width: fit-content;
+  max-width: 100%;
 }
 
 .range {
@@ -69,19 +99,22 @@
 }
 
 .help {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   color: #9aa0a6;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 @media (prefers-color-scheme: light) {
-  .controlCard {
-    background: #ffffff;
-    border-color: rgba(0, 0, 0, 0.08);
+  .title {
+    color: #213547;
   }
 
-  .select {
+  .effectMenuButton {
     background: #ffffff;
+  }
+
+  .controlPanel {
+    background-color: #f9f9f9;
   }
 }
 

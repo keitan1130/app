@@ -1,15 +1,19 @@
 import { ImageDropzone, ImageOutput } from '@/shared/ui'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ConvertButton } from './ConvertButton'
-import { SeedInput } from './SeedInput'
+import { ConvertAction } from './components/ConvertAction'
+import { DotSizeControl } from './components/DotSizeControl'
+import { EffectSelector } from './components/EffectSelector'
+import { ThresholdControl } from './components/ThresholdControl'
+import { XorSeedControl } from './components/XorSeedControl'
 import styles from './index.module.css'
 import { applyBlackWhite } from './processors/bw'
 import { applyDotEffect } from './processors/dot'
 import { applyGrayscale } from './processors/grayscale'
 import { applyInvert } from './processors/invert'
+import { applyPixelate } from './processors/pixel'
 import { applyXor } from './processors/xor'
 
-type EffectType = 'invert' | 'grayscale' | 'bw' | 'dot' | 'xor'
+type EffectType = 'invert' | 'grayscale' | 'bw' | 'dot' | 'pixel' | 'xor'
 
 type EffectOption = {
   value: EffectType
@@ -22,6 +26,7 @@ const effectOptions: EffectOption[] = [
   { value: 'grayscale', label: 'グレースケール', description: '明度のみの画像に変換します。' },
   { value: 'bw', label: '黒白', description: 'しきい値で白黒の2値化を行います。' },
   { value: 'dot', label: 'ドット化', description: '明度に応じたドットで描画します。' },
+  { value: 'pixel', label: 'ドット絵', description: 'ブロックの平均色でドット絵風にします。' },
   { value: 'xor', label: '画像暗号化', description: 'シード値でXOR変換します。' },
 ]
 
@@ -34,6 +39,7 @@ export const ImageTransform = () => {
   const [threshold, setThreshold] = useState(128)
   const [dotSize, setDotSize] = useState(8)
   const [seed, setSeed] = useState<string>('')
+  const [isEffectMenuOpen, setIsEffectMenuOpen] = useState(false)
 
   useEffect(() => {
     return () => {
@@ -70,6 +76,7 @@ export const ImageTransform = () => {
     (value: EffectType) => {
       setEffect(value)
       clearOutput()
+      setIsEffectMenuOpen(false)
     },
     [clearOutput]
   )
@@ -133,6 +140,8 @@ export const ImageTransform = () => {
 
       if (effect === 'dot') {
         applyDotEffect(ctx, imageData, dotSize)
+      } else if (effect === 'pixel') {
+        ctx.putImageData(applyPixelate(imageData, dotSize), 0, 0)
       } else if (effect === 'invert') {
         ctx.putImageData(applyInvert(imageData), 0, 0)
       } else if (effect === 'grayscale') {
@@ -181,89 +190,55 @@ export const ImageTransform = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>画像変換ツール</h1>
-      <p className={styles.description}>
-        ネガポジ・黒白・グレースケール・ドット化・画像暗号化などを試せます。
-      </p>
-
       <div className={styles.content}>
         <div className={styles.imageSection}>
           <ImageDropzone onImageSelect={handleImageSelect} previewUrl={inputPreviewUrl} />
         </div>
-
         <div className={styles.controlSection}>
-          <div className={styles.controlCard}>
-            <label className={styles.label} htmlFor="effect-select">
-              変換モード
-            </label>
-            <select
-              id="effect-select"
-              className={styles.select}
-              value={effect}
-              onChange={(e) => handleEffectChange(e.target.value as EffectType)}
-            >
-              {effectOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <p className={styles.help}>{selectedEffect?.description}</p>
-          </div>
+          <h3 className={styles.title}>画像変換</h3>
+          <div className={styles.controlPanel}>
+            <EffectSelector
+              options={effectOptions}
+              selectedLabel={selectedEffect?.label}
+              description={selectedEffect?.description}
+              isOpen={isEffectMenuOpen}
+              onToggle={() => setIsEffectMenuOpen((s) => !s)}
+              onClose={() => setIsEffectMenuOpen(false)}
+              onSelect={handleEffectChange}
+            />
 
-          {effect === 'bw' && (
-            <div className={styles.controlCard}>
-              <label className={styles.label} htmlFor="threshold-range">
-                しきい値: {threshold}
-              </label>
-              <input
-                id="threshold-range"
-                type="range"
-                min={0}
-                max={255}
-                value={threshold}
-                className={styles.range}
-                onChange={(e) => handleThresholdChange(Number(e.target.value))}
+            {effect === 'bw' && (
+              <ThresholdControl threshold={threshold} onChange={handleThresholdChange} />
+            )}
+
+            {(effect === 'dot' || effect === 'pixel') && (
+              <DotSizeControl
+                dotSize={dotSize}
+                onChange={handleDotSizeChange}
+                label={effect === 'pixel' ? 'ブロックサイズ' : 'ドットサイズ'}
+                helpText={
+                  effect === 'pixel'
+                    ? '大きいほど粗いドット絵になります。'
+                    : '大きいほど粗いドットになります。'
+                }
               />
-            </div>
-          )}
+            )}
 
-          {effect === 'dot' && (
-            <div className={styles.controlCard}>
-              <label className={styles.label} htmlFor="dot-range">
-                ドットサイズ: {dotSize}
-              </label>
-              <input
-                id="dot-range"
-                type="range"
-                min={3}
-                max={24}
-                value={dotSize}
-                className={styles.range}
-                onChange={(e) => handleDotSizeChange(Number(e.target.value))}
-              />
-              <p className={styles.help}>大きいほど粗いドットになります。</p>
-            </div>
-          )}
-
-          {effect === 'xor' && (
-            <div className={styles.controlCard}>
-              <SeedInput
+            {effect === 'xor' && (
+              <XorSeedControl
                 seed={seed}
                 onSeedChange={handleSeedChange}
                 onGenerateRandom={handleGenerateRandom}
               />
-              <p className={styles.help}>同じシード値で2回変換すると元に戻ります。</p>
-            </div>
-          )}
+            )}
 
-          <ConvertButton
-            onClick={handleConvert}
-            disabled={isConvertDisabled}
-            isProcessing={isProcessing}
-          />
+            <ConvertAction
+              onClick={handleConvert}
+              disabled={isConvertDisabled}
+              isProcessing={isProcessing}
+            />
+          </div>
         </div>
-
         <div className={styles.imageSection}>
           <ImageOutput outputUrl={outputUrl} onDownload={handleDownload} />
         </div>

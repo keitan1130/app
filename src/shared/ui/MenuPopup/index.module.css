@@ -1,11 +1,7 @@
 .menu {
-  /* position the popup directly below the button (button height 64px + gap 0.5rem) */
-  position: fixed;
-  top: calc(64px + 0.5rem);
-  left: 1rem;
   z-index: 11;
-  width: max-content;
-  min-width: 6rem;
+  width: fit-content;
+  min-width: fit-content;
   padding: 0.6rem 1rem;
   color: #fff;
   pointer-events: none;
@@ -15,6 +11,17 @@
   transition: 0.2s cubic-bezier(0.87, 0, 0.13, 1);
   transform-origin: left top;
   transform: scale(0.8);
+}
+
+.fixed {
+  /* position the popup directly below the button (button height 64px + gap 0.5rem) */
+  position: fixed;
+  top: calc(64px + 0.5rem);
+  left: 1rem;
+}
+
+.inline {
+  position: absolute;
 }
 
 .opened {
@@ -30,6 +37,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+}
+
+.list > li {
+  width: 100%;
 }
 
 @media (prefers-color-scheme: light) {

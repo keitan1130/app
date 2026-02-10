@@ -1,9 +1,9 @@
 import supiki from '@/assets/supiki.png'
 import clearSupikis from '@/features/Supiki/SupikiProcess/clear'
+import { MenuItem, MenuPopup } from '@/shared/ui'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.css'
-import { MenuItem, MenuPopup } from './MenuPopup'
 
 export const MenuButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)

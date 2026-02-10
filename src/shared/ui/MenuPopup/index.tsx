@@ -1,23 +1,34 @@
 import React from 'react'
-import { MenuItem } from '../MenuItem'
 import styles from './index.module.css'
 
-export { MenuItem }
-
 type MenuPopupProps = {
+  id?: string
   isOpen: boolean
   onClose?: () => void
   children?: React.ReactNode
+  className?: string
+  listClassName?: string
+  variant?: 'fixed' | 'inline'
 }
 
-export const MenuPopup: React.FC<MenuPopupProps> = ({ isOpen, onClose, children }) => {
+export const MenuPopup: React.FC<MenuPopupProps> = ({
+  id = 'menu-popup',
+  isOpen,
+  onClose,
+  children,
+  className,
+  listClassName,
+  variant = 'fixed',
+}) => {
   return (
     <nav
-      id="menu-popup"
-      className={`${styles.menu} ${isOpen ? styles.opened : ''}`}
+      id={id}
+      className={`${styles.menu} ${styles[variant]} ${isOpen ? styles.opened : ''} ${
+        className ?? ''
+      }`}
       aria-hidden={!isOpen}
     >
-      <ul className={styles.list} role="menu">
+      <ul className={`${styles.list} ${listClassName ?? ''}`} role="menu">
         {React.Children.map(children, (child, index) => {
           let content = child
           if (React.isValidElement(child)) {

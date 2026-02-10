@@ -1,12 +1,12 @@
 .container {
-  margin: 1.5rem 0;
+  margin: 0.5rem 0 0;
 }
 
 .button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 1em 2.5em;
-  font-size: 1.1em;
+  padding: 0.6em 1.6em;
+  font-size: 0.95em;
   font-weight: 600;
   font-family: inherit;
   background-color: #646cff;

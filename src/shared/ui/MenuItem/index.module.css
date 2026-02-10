@@ -1,4 +1,6 @@
 .button {
+  display: block;
+  width: 100%;
   background: transparent;
   border: none;
   color: inherit;
