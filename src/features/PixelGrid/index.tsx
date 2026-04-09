@@ -5,8 +5,8 @@ import { usePixelGridSync } from './usePixelGridSync'
 
 export const PixelGrid = () => {
   const { boardStyle, cells, errorMessage, paintCell, syncState, version } = usePixelGridSync()
-  const [selectedColor, setSelectedColor] = useState('#FFFFFF')
-  const [colorInput, setColorInput] = useState('FFFFFF')
+  const [selectedColor, setSelectedColor] = useState('#000000')
+  const [colorInput, setColorInput] = useState('000000')
   const [isPickerOpen, setIsPickerOpen] = useState(false)
 
   const handleColorInput = (value: string) => {
