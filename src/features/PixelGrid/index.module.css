@@ -1,0 +1,190 @@
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  padding: 16px;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boardArea {
+  position: relative;
+  width: min(94vmin, 840px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.board {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  gap: 0;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cell {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cell:hover {
+  transform: none;
+  filter: brightness(0.95);
+}
+
+.cell:focus,
+.cell:focus-visible,
+.cell:active {
+  outline: none;
+}
+
+.paletteDock {
+  position: relative;
+  align-self: flex-end;
+  z-index: 1;
+  background: #242424;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 8px;
+}
+
+.currentColorButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87);
+  padding: 6px 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.currentColorButton:hover {
+  border-color: #646cff;
+}
+
+.currentColorButton:focus,
+.currentColorButton:focus-visible,
+.currentColorButton:active {
+  outline: none;
+}
+
+.currentColorDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.35);
+}
+
+.currentColorCode {
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.pickerPanel {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pickerPanel :global(.react-colorful) {
+  width: 180px;
+  height: 140px;
+}
+
+.colorInput {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.87);
+  background: #1a1a1a;
+}
+
+.colorInputWrap {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #1a1a1a;
+  padding-left: 8px;
+}
+
+.colorInputWrap:focus-within {
+  border-color: #646cff;
+}
+
+.hashPrefix {
+  color: #888;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+@media (prefers-color-scheme: light) {
+  .wrapper {
+    background-color: #ffffff;
+    color: #213547;
+  }
+
+  .board {
+    border-color: #d1d5db;
+    background-color: #ffffff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  }
+
+  .paletteDock {
+    background: #ffffff;
+  }
+
+  .currentColorButton {
+    background: #f9f9f9;
+    color: #213547;
+  }
+
+  .currentColorButton:hover {
+    border-color: #747bff;
+  }
+
+  .colorInput {
+    color: #213547;
+    background: #f9f9f9;
+  }
+
+  .colorInputWrap {
+    background: #f9f9f9;
+  }
+
+  .colorInputWrap:focus-within {
+    border-color: #747bff;
+  }
+
+  .hashPrefix {
+    color: #6b7280;
+  }
+}
+
+@media (max-width: 768px) {
+  .boardArea {
+    width: min(96vw, 840px);
+  }
+}
