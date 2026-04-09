@@ -140,6 +140,13 @@
   line-height: 1;
 }
 
+.syncStatus {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: #9ca3af;
+}
+
 @media (prefers-color-scheme: light) {
   .wrapper {
     background-color: #ffffff;
@@ -179,6 +186,10 @@
   }
 
   .hashPrefix {
+    color: #6b7280;
+  }
+
+  .syncStatus {
     color: #6b7280;
   }
 }

@@ -1,33 +1,13 @@
-import { useMemo, useState } from 'react'
-import { HexColorPicker } from 'react-colorful'
+import { useState } from 'react'
+import { ColorPickerPanel } from './ColorPickerPanel'
 import styles from './index.module.css'
-
-type GridSize = 32
-
-const createCells = (size: GridSize) => Array.from({ length: size * size }, () => '#ffffff')
+import { usePixelGridSync } from './usePixelGridSync'
 
 export const PixelGrid = () => {
-  const [gridSize] = useState<GridSize>(32)
-  const [cells, setCells] = useState<string[]>(() => createCells(32))
+  const { boardStyle, cells, errorMessage, paintCell, syncState, version } = usePixelGridSync()
   const [selectedColor, setSelectedColor] = useState('#111827')
   const [colorInput, setColorInput] = useState('111827')
   const [isPickerOpen, setIsPickerOpen] = useState(false)
-
-  const boardStyle = useMemo(
-    () => ({
-      gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-    }),
-    [gridSize]
-  )
-
-  const handlePaintCell = (index: number) => {
-    setCells((prev) => {
-      if (prev[index] === selectedColor) return prev
-      const next = [...prev]
-      next[index] = selectedColor
-      return next
-    })
-  }
 
   const handleColorInput = (value: string) => {
     const normalized = value
@@ -44,40 +24,21 @@ export const PixelGrid = () => {
     <div className={styles.wrapper}>
       <div className={styles.boardArea}>
         <aside className={styles.paletteDock} aria-label="色変更メニュー">
-          <button
-            type="button"
-            className={styles.currentColorButton}
-            onClick={() => setIsPickerOpen((prev) => !prev)}
-            aria-label="色変更パネルを開く"
-            aria-expanded={isPickerOpen}
-          >
-            <span className={styles.currentColorDot} style={{ backgroundColor: selectedColor }} />
-            <span className={styles.currentColorCode}>{selectedColor.toUpperCase()}</span>
-          </button>
+          <ColorPickerPanel
+            colorInput={colorInput}
+            isOpen={isPickerOpen}
+            selectedColor={selectedColor}
+            onColorInputChange={handleColorInput}
+            onColorSelect={setSelectedColor}
+            onToggle={() => setIsPickerOpen((prev) => !prev)}
+          />
 
-          {isPickerOpen && (
-            <div className={styles.pickerPanel}>
-              <HexColorPicker
-                color={selectedColor}
-                onChange={(next) => {
-                  setSelectedColor(next)
-                  setColorInput(next.slice(1).toUpperCase())
-                }}
-              />
-              <label className={styles.colorInputWrap}>
-                <span className={styles.hashPrefix}>#</span>
-                <input
-                  type="text"
-                  className={styles.colorInput}
-                  value={colorInput}
-                  onChange={(e) => handleColorInput(e.target.value)}
-                  placeholder="RRGGBB"
-                  aria-label="色コード入力"
-                  inputMode="text"
-                />
-              </label>
-            </div>
-          )}
+          <p className={styles.syncStatus} role="status" aria-live="polite">
+            {syncState === 'loading' && '同期中...'}
+            {syncState === 'saving' && '保存中...'}
+            {syncState === 'idle' && `version: ${version}`}
+            {syncState === 'error' && (errorMessage || '通信エラー')}
+          </p>
         </aside>
 
         <div
@@ -93,7 +54,7 @@ export const PixelGrid = () => {
               role="gridcell"
               className={styles.cell}
               style={{ backgroundColor: color }}
-              onClick={() => handlePaintCell(index)}
+              onClick={() => void paintCell(index, selectedColor)}
               aria-label={`セル ${index + 1}`}
             />
           ))}
