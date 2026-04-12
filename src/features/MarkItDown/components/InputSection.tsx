@@ -52,6 +52,9 @@ export const InputSection = ({
             <div className={styles.placeholder}>
               <p>ここにファイルをドラッグ＆ドロップ</p>
               <p>または クリックして選択</p>
+              <p>
+                ファイル情報はmarkdownに変換された後に削除されますが送るファイルに個人情報が含まないようにしてください
+              </p>
             </div>
           )}
           <input
