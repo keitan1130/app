@@ -16,7 +16,7 @@ function App() {
         <Route path="/grid" element={<PixelGridPage />} />
         <Route path="/supiki" element={<SupikiRanchPage />} />
         <Route path="/image" element={<ImageTransformPage />} />
-        <Route path="/markitdown" element={<MarkItDownPage />} />
+        <Route path="/markdown" element={<MarkItDownPage />} />
       </Routes>
       <MenuButton />
     </HashRouter>
