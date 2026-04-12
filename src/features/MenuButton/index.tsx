@@ -46,6 +46,7 @@ export const MenuButton: React.FC = () => {
         <MenuItem onClick={() => navigate('/bus')}>バス時刻表</MenuItem>
         <MenuItem onClick={() => navigate('/grid')}>方眼ペイント</MenuItem>
         <MenuItem onClick={() => navigate('/image')}>画像変換</MenuItem>
+        <MenuItem onClick={() => navigate('/markdown')}>Markdown</MenuItem>
         <MenuItem onClick={() => navigate('/supiki')}>スピキ牧場</MenuItem>
         <MenuItem onClick={() => clearSupikis()}>ｽﾋﾟｷｦｲｼﾞﾒﾇﾝﾃﾞ</MenuItem>
       </MenuPopup>

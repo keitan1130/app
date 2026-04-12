@@ -1,0 +1,426 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.95rem);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.description {
+  margin: 0.45rem 0 0;
+  color: #888;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.inputSection,
+.outputSection {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.controlSection {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.dropzone {
+  width: 300px;
+  height: 300px;
+  border: 2px dashed #646cff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    background-color 0.25s;
+  background-color: #1a1a1a;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.dragOver,
+.dropzone:hover {
+  border-color: #535bf2;
+  background-color: rgba(100, 108, 255, 0.1);
+}
+
+.placeholder {
+  text-align: center;
+  color: #888;
+}
+
+.placeholder p {
+  margin: 0.45rem 0;
+}
+
+.fileCard {
+  width: calc(100% - 2rem);
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  text-align: left;
+}
+
+.fileCardName {
+  margin: 0;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileCardMeta {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: #9aa0a6;
+}
+
+.fileInput {
+  display: none;
+}
+
+.manualInput {
+  width: 300px;
+  height: 300px;
+  border-radius: 8px;
+  border: 2px solid #646cff;
+  background: #1a1a1a;
+  color: inherit;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.45;
+}
+
+.fileInfo {
+  margin: 0.65rem 0 0;
+  color: #9aa0a6;
+  font-size: 0.86rem;
+}
+
+.controlPanel {
+  width: 300px;
+  height: 300px;
+  border: 2px solid #646cff;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  overflow-y: auto;
+}
+
+.controlCard {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+}
+
+.modeMenu {
+  position: relative;
+  width: 100%;
+}
+
+.modeMenuButton {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #1a1a1a;
+  color: inherit;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.modeMenuPopup {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  z-index: 5;
+  width: fit-content;
+  min-width: fit-content;
+  max-width: 100%;
+}
+
+.detectedType {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.18rem 0.48rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.typeDetail {
+  margin: 0;
+  color: #9aa0a6;
+  font-size: 0.8rem;
+}
+
+.formatList {
+  margin: 0;
+  padding-left: 1rem;
+  max-height: none;
+  overflow: visible;
+  color: #9aa0a6;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.formatList li {
+  margin-bottom: 0.15rem;
+}
+
+.convertButton {
+  margin-top: 0.2rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.65em 1.2em;
+  font-size: 0.95em;
+  font-weight: 600;
+  background-color: #646cff;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background-color 0.25s,
+    transform 0.1s;
+}
+
+.convertButton:hover:not(:disabled) {
+  background-color: #535bf2;
+  transform: scale(1.02);
+}
+
+.convertButton:disabled {
+  background-color: #3a3a3a;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  margin: 0.2rem 0 0;
+  color: #ff8f8f;
+  font-weight: 600;
+  font-size: 0.84rem;
+}
+
+.outputPanel {
+  width: 300px;
+  height: 300px;
+  border: 2px solid #646cff;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.outputMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 300px;
+  margin-top: 0.75rem;
+}
+
+.outputName {
+  margin: 0;
+  font-size: 0.83rem;
+  color: #9aa0a6;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+
+.outputActions {
+  display: flex;
+  gap: 0.45rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.outputActions button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.45em 0.8em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background-color: #646cff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.outputActions button:hover:not(:disabled) {
+  background-color: #535bf2;
+}
+
+.outputActions button:disabled {
+  background-color: #3a3a3a;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.outputArea {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0.7rem;
+  box-sizing: border-box;
+  resize: none;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  line-height: 1.45;
+}
+
+@media (prefers-color-scheme: light) {
+  .pageTitle,
+  .title {
+    color: #213547;
+  }
+
+  .dropzone,
+  .manualInput,
+  .controlPanel,
+  .outputPanel {
+    background-color: #f9f9f9;
+  }
+
+  .modeMenuButton {
+    background: #ffffff;
+  }
+
+  .fileCard {
+    background: transparent;
+  }
+
+  .fileCardMeta,
+  .outputName {
+    color: #475569;
+  }
+
+  .manualInput,
+  .outputArea {
+    color: #213547;
+  }
+
+  .outputArea {
+    background: transparent;
+  }
+
+  .typeDetail,
+  .formatList,
+  .fileInfo,
+  .description {
+    color: #475569;
+  }
+
+  .typeBadge {
+    border-color: rgba(100, 108, 255, 0.45);
+    background: transparent;
+  }
+
+  .outputActions button {
+    color: #fff;
+  }
+
+  .convertButton:disabled {
+    background-color: #ccc;
+    color: #666;
+  }
+
+  .outputActions button:disabled {
+    background-color: #ccc;
+    color: #666;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 1.1rem 0.85rem 1.3rem;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .controlSection {
+    width: 100%;
+  }
+
+  .inputSection,
+  .outputSection {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .dropzone,
+  .manualInput,
+  .controlPanel,
+  .outputPanel {
+    width: 300px;
+  }
+
+  .outputMeta {
+    width: 300px;
+  }
+}
