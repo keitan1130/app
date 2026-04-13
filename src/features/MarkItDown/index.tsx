@@ -6,7 +6,10 @@ import type { InputMode } from './types'
 import {
   detectSourceTypeFromFile,
   detectSourceTypeFromManual,
+  fileInputAccept,
   formatBytes,
+  isSupportedFile,
+  isSupportedManualInput,
   supportedFormats,
 } from './utils/markitdownSource'
 
@@ -35,7 +38,7 @@ export const MarkItDown = () => {
   const hasResult = markdown.trim().length > 0
 
   const modeLabel = useMemo(() => {
-    return inputMode === 'file' ? 'ファイルを選択' : '手入力（URL / テキスト）'
+    return inputMode === 'file' ? 'ファイルを選択' : '手入力（HTML / CSV / JSON / XML）'
   }, [inputMode])
 
   const selectedFileLabel = useMemo(() => {
@@ -62,6 +65,15 @@ export const MarkItDown = () => {
   const handleFileChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0] ?? null
+      if (file && !isSupportedFile(file)) {
+        setSelectedFile(null)
+        clearMarkdown()
+        resetOutputName()
+        setErrorMessage(
+          '対応形式は PDF / PowerPoint / Word / Excel / HTML / CSV / JSON / XML のみです'
+        )
+        return
+      }
       setSelectedFile(file)
       setCopied(false)
       clearError()
@@ -72,7 +84,7 @@ export const MarkItDown = () => {
       }
       setOutputNameFromFileName(file.name)
     },
-    [clearError, clearMarkdown, resetOutputName, setOutputNameFromFileName]
+    [clearError, clearMarkdown, resetOutputName, setErrorMessage, setOutputNameFromFileName]
   )
 
   const handleDrop = useCallback(
@@ -82,6 +94,15 @@ export const MarkItDown = () => {
       setIsDragOver(false)
 
       const file = event.dataTransfer.files?.[0] ?? null
+      if (file && !isSupportedFile(file)) {
+        setSelectedFile(null)
+        clearMarkdown()
+        resetOutputName()
+        setErrorMessage(
+          '対応形式は PDF / PowerPoint / Word / Excel / HTML / CSV / JSON / XML のみです'
+        )
+        return
+      }
       setSelectedFile(file)
       clearError()
       setCopied(false)
@@ -93,7 +114,7 @@ export const MarkItDown = () => {
 
       setOutputNameFromFileName(file.name)
     },
-    [clearError, resetOutputName, setOutputNameFromFileName]
+    [clearError, clearMarkdown, resetOutputName, setErrorMessage, setOutputNameFromFileName]
   )
 
   const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
@@ -123,8 +144,18 @@ export const MarkItDown = () => {
 
   const handleConvert = useCallback(() => {
     setCopied(false)
+    if (inputMode === 'file' && selectedFile && !isSupportedFile(selectedFile)) {
+      setErrorMessage(
+        '対応形式は PDF / PowerPoint / Word / Excel / HTML / CSV / JSON / XML のみです'
+      )
+      return
+    }
+    if (inputMode === 'manual' && !isSupportedManualInput(manualInput)) {
+      setErrorMessage('手入力は HTML / CSV / JSON / XML のみ対応しています')
+      return
+    }
     void convert({ inputMode, selectedFile, manualInput })
-  }, [convert, inputMode, manualInput, selectedFile])
+  }, [convert, inputMode, manualInput, selectedFile, setErrorMessage])
 
   const handleCopy = useCallback(async () => {
     if (!hasResult) return
@@ -151,7 +182,10 @@ export const MarkItDown = () => {
   }, [hasResult, markdown, outputName])
 
   const isConvertDisabled =
-    isConverting || (inputMode === 'file' ? !selectedFile : !manualInput.trim())
+    isConverting ||
+    (inputMode === 'file'
+      ? !selectedFile || !isSupportedFile(selectedFile)
+      : !manualInput.trim() || !isSupportedManualInput(manualInput))
 
   return (
     <section className={styles.container}>
@@ -162,6 +196,7 @@ export const MarkItDown = () => {
           manualInput={manualInput}
           isDragOver={isDragOver}
           selectedFileLabel={selectedFileLabel}
+          fileAccept={fileInputAccept}
           fileInputRef={fileInputRef}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}

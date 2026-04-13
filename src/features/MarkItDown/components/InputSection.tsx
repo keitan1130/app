@@ -9,6 +9,7 @@ type InputSectionProps = {
   manualInput: string
   isDragOver: boolean
   selectedFileLabel: string
+  fileAccept: string
   fileInputRef: React.RefObject<HTMLInputElement | null>
   onDragOver: (event: React.DragEvent<HTMLDivElement>) => void
   onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void
@@ -24,6 +25,7 @@ export const InputSection = ({
   manualInput,
   isDragOver,
   selectedFileLabel,
+  fileAccept,
   fileInputRef,
   onDragOver,
   onDragLeave,
@@ -60,6 +62,7 @@ export const InputSection = ({
           <input
             ref={fileInputRef}
             type="file"
+            accept={fileAccept}
             className={styles.fileInput}
             onChange={onFileChange}
           />
@@ -69,7 +72,7 @@ export const InputSection = ({
           className={styles.manualInput}
           value={manualInput}
           onChange={onManualInputChange}
-          placeholder="YouTube URL や HTML / JSON / CSV / XML / テキストを入力"
+          placeholder="HTML / CSV / JSON / XML テキストを入力"
           rows={12}
         />
       )}

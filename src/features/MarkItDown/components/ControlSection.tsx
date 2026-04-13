@@ -56,7 +56,9 @@ export const ControlSection = ({
               variant="inline"
             >
               <MenuItem onClick={() => onModeChange('file')}>ファイルを選択</MenuItem>
-              <MenuItem onClick={() => onModeChange('manual')}>手入力（URL / テキスト）</MenuItem>
+              <MenuItem onClick={() => onModeChange('manual')}>
+                手入力（HTML / CSV / JSON / XML）
+              </MenuItem>
             </MenuPopup>
           </div>
         </div>
