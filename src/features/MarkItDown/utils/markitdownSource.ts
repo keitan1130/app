@@ -25,7 +25,7 @@ export const supportedFormats = [
   'Word',
   'Excel',
   'HTML',
-  'Text(CSV, JSON, XML, HTML)',
+  'Text(HTML, CSV, JSON, XML)',
 ]
 
 export const toMarkdownFileName = (name: string) => {
