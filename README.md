@@ -17,6 +17,11 @@ npm run dev
 3. ローカルサーバーへアクセス
    http://localhost:5173
 
+## 開発時 API プロキシ
+
+- 開発サーバーでは `/api` へのリクエストをデフォルトで `http://localhost:8080` にプロキシします。
+- 必要に応じて `VITE_API_BASE_URL` 環境変数で上書きできます。
+
 ## 技術構成
 
 - フレームワーク:Vite + React
