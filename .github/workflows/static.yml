@@ -38,7 +38,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_BASE_URL: '/CSharpBlock4Unity/'
+          VITE_BASE_URL: '/app/'
         run: npm run build
 
       - name: Upload artifact for GitHub Pages
