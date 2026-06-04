@@ -3,17 +3,16 @@
   width: 100%;
   background: transparent;
   border: none;
-  color: inherit;
   padding: 0.4rem 0;
   text-align: left;
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
-  -webkit-tap-highlight-color: transparent;
+  color: var(--text-color);
 }
 
 .button:hover {
-  opacity: 0.95;
+  color: var(--text-secondary-color);
 }
 
 /* マウス/タッチ時の視覚的なフォーカスリングは非表示にし、キーボード操作時は残す */
@@ -21,7 +20,6 @@
   outline: none;
 }
 .button:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 2px;
 }
 .button:active {

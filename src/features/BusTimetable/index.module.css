@@ -7,8 +7,6 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: #242424;
-  color: rgba(255, 255, 255, 0.87);
 }
 
 .toggleContainer {
@@ -23,15 +21,13 @@
   gap: 10px;
   cursor: pointer;
   padding: 8px 16px;
-  background-color: #1a1a1a;
   border-radius: 24px;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
+  border: 2px solid var(--border-color);
   width: auto;
 }
 
 .toggleLabel:hover {
-  border-color: #646cff;
+  background-color: var(--background-secondary-color);
 }
 
 .toggleInput {
@@ -41,19 +37,16 @@
 .divider {
   width: 1px;
   height: 20px;
-  background-color: #444;
 }
 
 .timeLabel {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.87);
 }
 
 .timeValue {
   font-size: 1rem;
   font-weight: 700;
-  color: #646cff;
   letter-spacing: 0.05em;
 }
 
@@ -61,9 +54,8 @@
   position: relative;
   width: 52px;
   height: 28px;
-  background: #444;
   border-radius: 14px;
-  transition: background 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .toggleSwitch::before {
@@ -73,25 +65,18 @@
   left: 3px;
   width: 22px;
   height: 22px;
-  background: #888;
   border-radius: 50%;
-  transition: transform 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.toggleInput:checked + .toggleSwitch {
-  background: #646cff;
+  background: var(--background-third-color);
 }
 
 .toggleInput:checked + .toggleSwitch::before {
   transform: translateX(24px);
-  background: white;
+  background: var(--text-color);
 }
 
 .toggleText {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.87);
 }
 
 .timetableWrapper {
@@ -114,18 +99,15 @@
   gap: 8px;
   font-size: 1rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.87);
   margin-bottom: 4px;
   padding: 8px 12px;
-  background-color: #1a1a1a;
   border-radius: 10px;
   white-space: nowrap;
-  border: 1px solid transparent;
+  border: 2px solid var(--border-color);
   cursor: pointer;
-  transition: border-color 0.3s ease;
 }
 .columnTitle:hover {
-  border-color: #646cff;
+  background-color: var(--background-secondary-color);
 }
 
 .cardList {
@@ -135,79 +117,6 @@
   scroll-behavior: smooth;
 }
 
-.cardList::-webkit-scrollbar {
-  width: 8px;
-}
-
-.cardList::-webkit-scrollbar-track {
-  background: #1a1a1a;
-  border-radius: 4px;
-}
-
-.cardList::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 4px;
-}
-
-.cardList::-webkit-scrollbar-thumb:hover {
-  background: #646cff;
-}
-
-/* ライトモード対応 */
-@media (prefers-color-scheme: light) {
-  .container {
-    background-color: #ffffff;
-    color: #213547;
-  }
-
-  .toggleLabel {
-    background-color: #f9f9f9;
-  }
-
-  .toggleSwitch {
-    background: #ccc;
-  }
-
-  .toggleSwitch::before {
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .toggleText {
-    color: #213547;
-  }
-
-  .timeDisplay {
-    background-color: #f9f9f9;
-  }
-
-  .timeLabel {
-    color: #213547;
-  }
-
-  .timeValue {
-    color: #747bff;
-  }
-
-  .columnTitle {
-    color: #213547;
-    background-color: #f9f9f9;
-  }
-
-  .cardList::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  .cardList::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-  }
-
-  .cardList::-webkit-scrollbar-thumb:hover {
-    background: #747bff;
-  }
-}
-
-/* スマートフォン対応 */
 @media (max-width: 600px) {
   .toggleContainer {
     flex-direction: column;

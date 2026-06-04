@@ -30,14 +30,17 @@
   display: block;
 }
 
+.menuPopupFixed {
+  /* position the popup directly below the button (button height 64px + gap 0.5rem) */
+  top: calc(64px + 0.5rem);
+  left: 1rem;
+}
+
 /* マウス/タッチ時の視覚的なフォーカスリングは非表示にし、キーボード操作時は残す（アクセシビリティ維持） */
 .menuButton:focus {
   outline: none;
 }
-.menuButton:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 2px;
-}
+
 .menuButton:active {
   outline: none;
 }

@@ -71,8 +71,14 @@ const kyutechToIizuka = [
   { departure: 74700, arrival: 75540, runsOnReduced: false }, // 20:45 → 20:59
 ]
 
+const USE_DEBUG_TIME = true
+const DEBUG_TIME_SECONDS = 16 * 3600 + 24 * 60 + 0
+
 // 現在時刻を秒単位で取得
 const getCurrentTimeInSeconds = (): number => {
+  if (USE_DEBUG_TIME) {
+    return DEBUG_TIME_SECONDS
+  }
   const now = new Date()
   return now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()
 }
@@ -188,6 +194,7 @@ export const BusTimetable = () => {
                   <BusCard
                     departureTime={bus.departure}
                     arrivalTime={bus.arrival}
+                    currentTimeSeconds={currentTime}
                     isPast={bus.departure <= currentTime}
                     isNext={originalIndex === nextIizukaIndex}
                   />
@@ -215,6 +222,7 @@ export const BusTimetable = () => {
                   <BusCard
                     departureTime={bus.departure}
                     arrivalTime={bus.arrival}
+                    currentTimeSeconds={currentTime}
                     isPast={bus.departure <= currentTime}
                     isNext={originalIndex === nextKyutechIndex}
                   />

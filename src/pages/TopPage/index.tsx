@@ -1,10 +1,10 @@
-import { ViteTemplate } from '@/features/ViteTemplate'
+import { Navigate } from '@/features/Navigate'
 import styles from './index.module.css'
 
 export const TopPage = () => {
   return (
     <div className={styles.page}>
-      <ViteTemplate />
+      <Navigate />
     </div>
   )
 }

@@ -13,12 +13,10 @@
 .pageTitle {
   margin: 0;
   font-size: clamp(1.35rem, 2vw, 1.95rem);
-  color: rgba(255, 255, 255, 0.87);
 }
 
 .description {
   margin: 0.45rem 0 0;
-  color: #888;
 }
 
 .content {
@@ -31,7 +29,6 @@
 
 .title {
   margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.87);
 }
 
 .inputSection,
@@ -54,29 +51,18 @@
 .dropzone {
   width: 300px;
   height: 300px;
-  border: 2px dashed #646cff;
+  border: 2px dashed var(--border-color);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    border-color 0.25s,
-    background-color 0.25s;
-  background-color: #1a1a1a;
   overflow: hidden;
   box-sizing: border-box;
 }
 
-.dragOver,
-.dropzone:hover {
-  border-color: #535bf2;
-  background-color: rgba(100, 108, 255, 0.1);
-}
-
 .placeholder {
   text-align: center;
-  color: #888;
 }
 
 .placeholder p {
@@ -87,8 +73,7 @@
   width: calc(100% - 2rem);
   padding: 0.8rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
+  border: 2px solid var(--border-color);
   text-align: left;
 }
 
@@ -114,13 +99,13 @@
   width: 300px;
   height: 300px;
   border-radius: 8px;
-  border: 2px solid #646cff;
-  background: #1a1a1a;
-  color: inherit;
+  border: 2px solid var(--border-color);
   padding: 0.75rem;
   box-sizing: border-box;
   resize: none;
   line-height: 1.45;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .fileInfo {
@@ -132,9 +117,8 @@
 .controlPanel {
   width: 300px;
   height: 300px;
-  border: 2px solid #646cff;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background-color: #1a1a1a;
   padding: 0.75rem;
   box-sizing: border-box;
   display: flex;
@@ -166,14 +150,14 @@
 .modeMenuButton {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: #1a1a1a;
-  color: inherit;
+  border: 2px solid var(--border-color);
   padding: 0.45rem 0.7rem;
   font-size: 0.9rem;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .modeMenuPopup {
@@ -198,7 +182,7 @@
   width: fit-content;
   padding: 0.18rem 0.48rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--border-color);
   background: transparent;
   font-size: 0.78rem;
   font-weight: 700;
@@ -206,7 +190,6 @@
 
 .typeDetail {
   margin: 0;
-  color: #9aa0a6;
   font-size: 0.8rem;
 }
 
@@ -215,7 +198,6 @@
   padding-left: 1rem;
   max-height: none;
   overflow: visible;
-  color: #9aa0a6;
   font-size: 0.82rem;
   line-height: 1.35;
 }
@@ -227,32 +209,25 @@
 .convertButton {
   margin-top: 0.2rem;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 2px solid var(--border-color);
   padding: 0.65em 1.2em;
   font-size: 0.95em;
   font-weight: 600;
-  background-color: #646cff;
-  color: #fff;
   cursor: pointer;
-  transition:
-    background-color 0.25s,
-    transform 0.1s;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .convertButton:hover:not(:disabled) {
-  background-color: #535bf2;
-  transform: scale(1.02);
+  background-color: var(--background-secondary-color);
 }
 
 .convertButton:disabled {
-  background-color: #3a3a3a;
-  color: #888;
   cursor: not-allowed;
 }
 
 .errorMessage {
   margin: 0.2rem 0 0;
-  color: #ff8f8f;
   font-weight: 600;
   font-size: 0.84rem;
 }
@@ -260,9 +235,8 @@
 .outputPanel {
   width: 300px;
   height: 300px;
-  border: 2px solid #646cff;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background-color: #1a1a1a;
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;
@@ -280,7 +254,6 @@
 .outputName {
   margin: 0;
   font-size: 0.83rem;
-  color: #9aa0a6;
   font-weight: 600;
   width: 100%;
   text-align: center;
@@ -295,23 +268,17 @@
 
 .outputActions button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   padding: 0.45em 0.8em;
   font-size: 0.82rem;
   font-weight: 600;
-  background-color: #646cff;
-  color: #fff;
+  background-color: var(--background-color);
+  border: 2px solid var(--border-color);
   cursor: pointer;
-  transition: background-color 0.25s;
-}
-
-.outputActions button:hover:not(:disabled) {
-  background-color: #535bf2;
+  color: var(--text-color);
 }
 
 .outputActions button:disabled {
-  background-color: #3a3a3a;
-  color: #888;
   cursor: not-allowed;
 }
 
@@ -325,72 +292,7 @@
   padding: 0.7rem;
   box-sizing: border-box;
   resize: none;
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
   line-height: 1.45;
-}
-
-@media (prefers-color-scheme: light) {
-  .pageTitle,
-  .title {
-    color: #213547;
-  }
-
-  .dropzone,
-  .manualInput,
-  .controlPanel,
-  .outputPanel {
-    background-color: #f9f9f9;
-  }
-
-  .modeMenuButton {
-    background: #ffffff;
-  }
-
-  .fileCard {
-    background: transparent;
-  }
-
-  .fileCardMeta,
-  .outputName {
-    color: #475569;
-  }
-
-  .manualInput,
-  .outputArea {
-    color: #213547;
-  }
-
-  .outputArea {
-    background: transparent;
-  }
-
-  .typeDetail,
-  .formatList,
-  .fileInfo,
-  .description {
-    color: #475569;
-  }
-
-  .typeBadge {
-    border-color: rgba(100, 108, 255, 0.45);
-    background: transparent;
-  }
-
-  .outputActions button {
-    color: #fff;
-  }
-
-  .convertButton:disabled {
-    background-color: #ccc;
-    color: #666;
-  }
-
-  .outputActions button:disabled {
-    background-color: #ccc;
-    color: #666;
-  }
 }
 
 @media (max-width: 900px) {

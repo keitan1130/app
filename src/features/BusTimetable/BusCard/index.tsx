@@ -3,6 +3,7 @@ import styles from './index.module.css'
 type BusCardProps = {
   departureTime: number // 秒単位
   arrivalTime: number // 秒単位
+  currentTimeSeconds: number // 秒単位
   isPast: boolean
   isNext: boolean
 }
@@ -17,10 +18,9 @@ const formatTime = (seconds: number): string => {
 // 出発までの残り時間を計算（HH:MM:SS形式）
 // 過ぎた場合は負の時間を返す（-5分以上過ぎた場合はnull）
 const getTimeUntilDeparture = (
-  departureSeconds: number
+  departureSeconds: number,
+  currentSeconds: number
 ): { time: string; isOverdue: boolean } | null => {
-  const now = new Date()
-  const currentSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()
   const diff = departureSeconds - currentSeconds
 
   // -5分（-300秒）以上過ぎた場合はnullを返す
@@ -38,8 +38,14 @@ const getTimeUntilDeparture = (
   return { time: timeString, isOverdue }
 }
 
-export const BusCard = ({ departureTime, arrivalTime, isPast, isNext }: BusCardProps) => {
-  const timeUntilData = getTimeUntilDeparture(departureTime)
+export const BusCard = ({
+  departureTime,
+  arrivalTime,
+  currentTimeSeconds,
+  isPast,
+  isNext,
+}: BusCardProps) => {
+  const timeUntilData = getTimeUntilDeparture(departureTime, currentTimeSeconds)
 
   return (
     <div className={`${styles.card} ${isPast ? styles.past : ''} ${isNext ? styles.next : ''}`}>
