@@ -44,6 +44,7 @@
   background-color: var(--background-color);
   cursor: pointer;
   border: 2px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .downloadButton:hover {

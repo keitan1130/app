@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './index.module.css'
 
 type MenuPopupProps = {
@@ -9,6 +9,7 @@ type MenuPopupProps = {
   className?: string
   listClassName?: string
   variant?: 'fixed' | 'inline'
+  closeOnOutsideClick?: boolean
 }
 
 export const MenuPopup: React.FC<MenuPopupProps> = ({
@@ -19,10 +20,33 @@ export const MenuPopup: React.FC<MenuPopupProps> = ({
   className,
   listClassName,
   variant = 'fixed',
+  closeOnOutsideClick = true,
 }) => {
+  const menuRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (!isOpen || !onClose || !closeOnOutsideClick) return
+
+    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node | null
+      if (!target) return
+      if (menuRef.current && !menuRef.current.contains(target)) {
+        onClose()
+      }
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('touchstart', handlePointerDown)
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('touchstart', handlePointerDown)
+    }
+  }, [isOpen, onClose, closeOnOutsideClick])
+
   return (
     <nav
       id={id}
+      ref={menuRef}
       className={`${styles.menu} ${styles[variant]} ${isOpen ? styles.opened : ''} ${
         className ?? ''
       }`}

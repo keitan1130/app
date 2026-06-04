@@ -43,7 +43,7 @@ export const MenuButton: React.FC = () => {
         <img src={supiki} alt="supiki menu" className={styles.image} />
       </button>
 
-      <MenuPopup isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <MenuPopup isOpen={isOpen} onClose={() => setIsOpen(false)} className={styles.menuPopupFixed}>
         <MenuItem onClick={() => navigate('/')}>トップ</MenuItem>
         <MenuItem onClick={() => navigate('/bus')}>バス時刻表</MenuItem>
         <MenuItem onClick={() => navigate('/grid')}>方眼ペイント</MenuItem>

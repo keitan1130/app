@@ -1,10 +1,7 @@
 .card {
-  background: #1a1a1a;
   border-radius: 8px;
   padding: 8px 12px;
   margin-bottom: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
   border: 1px solid var(--border-color);
 }
 
@@ -14,11 +11,10 @@
 
 .card.past {
   opacity: 0.5;
-  background: #2a2a2a;
 }
 
 .card.next {
-  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+  background: var(--background-third-color);
 }
 
 .timeInfo {
@@ -34,7 +30,6 @@
 
 .arrow {
   font-size: 0.9rem;
-  color: #888;
 }
 
 .arrival {
@@ -48,13 +43,14 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--background-color);
 }
 
 .until.overdue {
-  color: #ff4444;
-  background: rgba(255, 68, 68, 0.15);
+  border: 1px dashed var(--border-color);
 }
 
 .card.next .until {
-  background: rgba(100, 108, 255, 0.25);
+  border: 1px dashed var(--border-color);
 }

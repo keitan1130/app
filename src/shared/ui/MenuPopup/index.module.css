@@ -7,17 +7,12 @@
   background-color: var(--popup-background);
   border-radius: 1rem;
   opacity: 0;
-  transition: 0.2s cubic-bezier(0.87, 0, 0.13, 1);
   transform-origin: left top;
-  transform: scale(0.8);
   border: 2px solid var(--border-color);
 }
 
 .fixed {
-  /* position the popup directly below the button (button height 64px + gap 0.5rem) */
   position: fixed;
-  top: calc(64px + 0.5rem);
-  left: 1rem;
 }
 
 .inline {
@@ -25,7 +20,6 @@
 }
 
 .opened {
-  transform: scale(1);
   pointer-events: all;
   opacity: 1;
 }

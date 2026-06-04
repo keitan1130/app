@@ -81,6 +81,10 @@
   cursor: pointer;
 }
 
+.effectMenuButton:hover {
+  background-color: var(--background-secondary-color);
+}
+
 .effectMenuPopup {
   position: absolute;
   top: calc(100% + 0.35rem);
