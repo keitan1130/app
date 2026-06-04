@@ -71,7 +71,7 @@ const kyutechToIizuka = [
   { departure: 74700, arrival: 75540, runsOnReduced: false }, // 20:45 → 20:59
 ]
 
-const USE_DEBUG_TIME = true
+const USE_DEBUG_TIME = false
 const DEBUG_TIME_SECONDS = 16 * 3600 + 24 * 60 + 0
 
 // 現在時刻を秒単位で取得
