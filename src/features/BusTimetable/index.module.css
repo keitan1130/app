@@ -22,7 +22,6 @@
   cursor: pointer;
   padding: 8px 16px;
   border-radius: 24px;
-  transition: all 0.3s ease;
   border: 2px solid var(--border-color);
   width: auto;
 }
@@ -67,7 +66,6 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   background: var(--background-third-color);
 }
 
