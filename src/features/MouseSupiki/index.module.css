@@ -5,7 +5,7 @@
   transform: translate(var(--x), calc(-1 * var(--y)));
   pointer-events: none;
   transition: none;
-  z-index: 9999;
+  z-index: var(--supiki-layer);
 }
 
 .mouse-supiki__image {

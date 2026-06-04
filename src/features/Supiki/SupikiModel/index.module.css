@@ -3,7 +3,7 @@
   width: 100px;
   height: 100px;
   cursor: pointer;
-  z-index: 1000;
+  z-index: var(--supiki-layer);
   transition: transform 0.3s ease;
 }
 
