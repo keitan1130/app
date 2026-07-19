@@ -13,7 +13,7 @@ const getNextTargetTime = () =>
   Math.random() * (DIRECTION_CHANGE_INTERVAL_MAX - DIRECTION_CHANGE_INTERVAL_MIN)
 const getRandomAnimationDelay = () => Math.random() * 1.5
 const getRandomPosition = (max: number, size: number) => Math.random() * (max - size)
-const isRareSpawn = () => Math.random() < 0
+const isRareSpawn = () => Math.random() < 0.0001 // 1万分の1の確率
 
 const getNewTarget = (
   currentX: number,
@@ -35,7 +35,6 @@ const getNewTarget = (
 
 export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
   const [supikis, setSupikis] = useState<SupikiState[]>(initialSupikis)
-
   const nextIdRef = useRef(
     initialSupikis.length > 0 ? Math.max(...initialSupikis.map((s) => s.id)) + 1 : 1
   )
@@ -113,6 +112,10 @@ export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
       window.removeEventListener(SUPIKI_SPAWN_EVENT, spawnRandomSupiki)
     }
   }, [spawnRandomSupiki])
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('supiki:count', { detail: supikis.length }))
+  }, [supikis.length])
 
   return { supikis, addSupiki }
 }

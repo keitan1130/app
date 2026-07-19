@@ -26,7 +26,6 @@ export const MenuPopup: React.FC<MenuPopupProps> = ({
 
   useEffect(() => {
     if (!isOpen || !onClose || !closeOnOutsideClick) return
-
     const handlePointerDown = (e: MouseEvent | TouchEvent) => {
       const target = e.target as Node | null
       if (!target) return
@@ -34,7 +33,6 @@ export const MenuPopup: React.FC<MenuPopupProps> = ({
         onClose()
       }
     }
-
     document.addEventListener('mousedown', handlePointerDown)
     document.addEventListener('touchstart', handlePointerDown)
     return () => {
@@ -61,29 +59,7 @@ export const MenuPopup: React.FC<MenuPopupProps> = ({
       aria-hidden={!isOpen}
     >
       <ul className={`${styles.list} ${listClassName ?? ''}`} role="menu">
-        {React.Children.map(children, (child, index) => {
-          let content = child
-          if (React.isValidElement(child)) {
-            const element = child as React.ReactElement<
-              React.HTMLAttributes<HTMLElement> & { onClick?: (e: React.MouseEvent) => void }
-            >
-            const childOnClick = element.props.onClick
-            const nextTabIndex = isOpen ? element.props.tabIndex : -1
-            content = React.cloneElement(element, {
-              tabIndex: nextTabIndex,
-              onClick: (e: React.MouseEvent) => {
-                if (typeof childOnClick === 'function') childOnClick(e)
-                if (typeof onClose === 'function') onClose()
-              },
-            })
-          }
-
-          return (
-            <li key={index} role="none">
-              {content}
-            </li>
-          )
-        })}
+        {children}
       </ul>
     </nav>
   )

@@ -7,10 +7,11 @@ export type MenuItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export const MenuItem: React.FC<MenuItemProps> = ({ children, ...rest }) => {
   return (
-    <button type="button" role="menuitem" className={styles.button} {...rest}>
-      {children}
-    </button>
+    <li role="none" className={styles.menuItem}>
+      <button type="button" role="menuitem" className={styles.button} {...rest}>
+        {children}
+      </button>
+    </li>
   )
 }
-
 export default MenuItem
