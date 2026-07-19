@@ -13,7 +13,7 @@ const getNextTargetTime = () =>
   Math.random() * (DIRECTION_CHANGE_INTERVAL_MAX - DIRECTION_CHANGE_INTERVAL_MIN)
 const getRandomAnimationDelay = () => Math.random() * 1.5
 const getRandomPosition = (max: number, size: number) => Math.random() * (max - size)
-const isRareSpawn = () => Math.random() < 0.0001 // 1万分の1の確率
+const isRareSpawn = () => Math.random() < 0.001 // 1万分の1の確率
 
 const getNewTarget = (
   currentX: number,
