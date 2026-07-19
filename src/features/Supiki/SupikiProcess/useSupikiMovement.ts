@@ -1,28 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { SUPIKI_CLEAR_EVENT } from './clear'
+import { SUPIKI_SPAWN_EVENT } from './spawn'
 import type { SupikiState } from './types'
 
-const SPEED = 1.5
-const DIRECTION_CHANGE_INTERVAL_MIN = 2000 // 最小2秒
-const DIRECTION_CHANGE_INTERVAL_MAX = 4000 // 最大4秒
+const DIRECTION_CHANGE_INTERVAL_MIN = 2000
+const DIRECTION_CHANGE_INTERVAL_MAX = 4000
+const SIZE = 100
 
-// ランダムな次回ターゲット変更時刻を生成
-const getNextTargetTime = () => {
-  return (
-    Date.now() +
-    DIRECTION_CHANGE_INTERVAL_MIN +
-    Math.random() * (DIRECTION_CHANGE_INTERVAL_MAX - DIRECTION_CHANGE_INTERVAL_MIN)
-  )
-}
-
-// ランダムなアニメーション遅延を生成（0〜1.5秒）
-const getRandomAnimationDelay = () => {
-  return Math.random() * 1.5
-}
-
-const getRandomPosition = (max: number, size: number) => {
-  return Math.random() * (max - size)
-}
+const getNextTargetTime = () =>
+  Date.now() +
+  DIRECTION_CHANGE_INTERVAL_MIN +
+  Math.random() * (DIRECTION_CHANGE_INTERVAL_MAX - DIRECTION_CHANGE_INTERVAL_MIN)
+const getRandomAnimationDelay = () => Math.random() * 1.5
+const getRandomPosition = (max: number, size: number) => Math.random() * (max - size)
+const isRareSpawn = () => Math.random() < 0.001 // 1万分の1の確率
 
 const getNewTarget = (
   currentX: number,
@@ -31,140 +22,111 @@ const getNewTarget = (
   windowHeight: number,
   size: number
 ) => {
-  // 現在位置からランダムな距離を移動
-  const maxDistance = 300
   const minDistance = 100
-
+  const maxDistance = 300
   const distance = minDistance + Math.random() * (maxDistance - minDistance)
   const angle = Math.random() * 2 * Math.PI
-
   let targetX = currentX + Math.cos(angle) * distance
   let targetY = currentY + Math.sin(angle) * distance
-
-  // 画面内に収める
   targetX = Math.max(0, Math.min(windowWidth - size, targetX))
   targetY = Math.max(0, Math.min(windowHeight - size, targetY))
-
   return { targetX, targetY }
 }
 
 export const useSupikiMovement = (initialSupikis: SupikiState[]) => {
   const [supikis, setSupikis] = useState<SupikiState[]>(initialSupikis)
-  const nextIdRef = useRef(initialSupikis.length + 1)
+  const nextIdRef = useRef(
+    initialSupikis.length > 0 ? Math.max(...initialSupikis.map((s) => s.id)) + 1 : 1
+  )
 
-  // 個別のタイミングでターゲットを更新
   const updateTargetsIndividually = useCallback(() => {
     const now = Date.now()
     setSupikis((prev) =>
       prev.map((supiki) => {
-        // まだ次の変更時刻になっていない場合はスキップ
-        if (now < supiki.nextTargetTime) {
-          return supiki
-        }
-
-        const size = 100
+        if (now < supiki.nextTargetTime) return supiki
         const { targetX, targetY } = getNewTarget(
-          supiki.x,
-          supiki.y,
+          supiki.targetX,
+          supiki.targetY,
           window.innerWidth,
           window.innerHeight,
-          size
+          SIZE
         )
+        const dx = targetX - supiki.targetX
+        const direction = Math.abs(dx) > 30 ? (dx < 0 ? 'left' : 'right') : supiki.direction
+
         return {
           ...supiki,
+          x: supiki.targetX,
+          y: supiki.targetY,
           targetX,
           targetY,
-          nextTargetTime: getNextTargetTime(), // 次回の変更時刻を設定
+          direction,
+          nextTargetTime: getNextTargetTime(),
+          isMoving: true,
         }
       })
     )
   }, [])
 
-  // 移動処理
   useEffect(() => {
-    const moveInterval = setInterval(() => {
-      setSupikis((prev) =>
-        prev.map((supiki) => {
-          const dx = supiki.targetX - supiki.x
-          const dy = supiki.targetY - supiki.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < SPEED) {
-            // 目標に到着したら停止
-            return { ...supiki, isMoving: false }
-          }
-
-          const newX = supiki.x + (dx / distance) * SPEED
-          const newY = supiki.y + (dy / distance) * SPEED
-
-          // 移動方向に基づいて向きを決定（頻度を減らすため閾値を設ける）
-          let newDirection = supiki.direction
-          if (Math.abs(dx) > 30) {
-            newDirection = dx < 0 ? 'left' : 'right'
-          }
-
-          return {
-            ...supiki,
-            x: newX,
-            y: newY,
-            direction: newDirection,
-            isMoving: true,
-          }
-        })
-      )
-    }, 16)
-
-    return () => clearInterval(moveInterval)
-  }, [])
-
-  // 高頻度でチェックし、個別のタイミングでターゲットを更新
-  useEffect(() => {
-    const targetInterval = setInterval(updateTargetsIndividually, 100) // 100msごとにチェック
+    const targetInterval = setInterval(updateTargetsIndividually, 100)
     return () => clearInterval(targetInterval)
   }, [updateTargetsIndividually])
 
-  // supikiを追加
   const addSupiki = useCallback((x: number, y: number) => {
     const newId = nextIdRef.current++
-    const size = 100
-    const { targetX, targetY } = getNewTarget(x, y, window.innerWidth, window.innerHeight, size)
-
+    const { targetX, targetY } = getNewTarget(x, y, window.innerWidth, window.innerHeight, SIZE)
     setSupikis((prev) => [
       ...prev,
       {
         id: newId,
         x,
         y,
-        direction: 'right' as const,
+        direction: 'right',
         targetX,
         targetY,
         animationDelay: getRandomAnimationDelay(),
         nextTargetTime: getNextTargetTime(),
         isMoving: true,
+        isRare: isRareSpawn(),
       },
     ])
   }, [])
 
-  // 外部から全スピキを消すイベントに対応
+  const spawnRandomSupiki = useCallback(() => {
+    const x = getRandomPosition(window.innerWidth, SIZE)
+    const y = getRandomPosition(window.innerHeight, SIZE)
+    addSupiki(x, y)
+  }, [addSupiki])
+
   useEffect(() => {
     if (typeof window === 'undefined') return
-    const handler = () => {
+    const clearHandler = () => {
       setSupikis([])
       nextIdRef.current = 1
     }
-    window.addEventListener(SUPIKI_CLEAR_EVENT, handler)
-    return () => window.removeEventListener(SUPIKI_CLEAR_EVENT, handler)
-  }, [])
+    window.addEventListener(SUPIKI_CLEAR_EVENT, clearHandler)
+    window.addEventListener(SUPIKI_SPAWN_EVENT, spawnRandomSupiki)
+    return () => {
+      window.removeEventListener(SUPIKI_CLEAR_EVENT, clearHandler)
+      window.removeEventListener(SUPIKI_SPAWN_EVENT, spawnRandomSupiki)
+    }
+  }, [spawnRandomSupiki])
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('supiki:count', { detail: supikis.length }))
+  }, [supikis.length])
 
   return { supikis, addSupiki }
 }
 
 export const createInitialSupiki = (): SupikiState => {
-  const size = 100
-  const x = getRandomPosition(window.innerWidth, size)
-  const y = getRandomPosition(window.innerHeight, size)
-  const { targetX, targetY } = getNewTarget(x, y, window.innerWidth, window.innerHeight, size)
-
+  const x = typeof window !== 'undefined' ? getRandomPosition(window.innerWidth, SIZE) : 0
+  const y = typeof window !== 'undefined' ? getRandomPosition(window.innerHeight, SIZE) : 0
+  const { targetX, targetY } =
+    typeof window !== 'undefined'
+      ? getNewTarget(x, y, window.innerWidth, window.innerHeight, SIZE)
+      : { targetX: x, targetY: y }
   return {
     id: 1,
     x,
@@ -175,5 +137,6 @@ export const createInitialSupiki = (): SupikiState => {
     animationDelay: getRandomAnimationDelay(),
     nextTargetTime: getNextTargetTime(),
     isMoving: true,
+    isRare: isRareSpawn(),
   }
 }
