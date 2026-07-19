@@ -1,7 +1,6 @@
 import { MenuButton } from '@/features/MenuButton'
 import { BusTimetablePage } from '@/pages/BusTimetablePage'
 import { ImageTransformPage } from '@/pages/ImageTransformPage'
-import { MarkItDownPage } from '@/pages/MarkItDownPage'
 import { PixelGridPage } from '@/pages/PixelGridPage'
 import { SupikiRanchPage } from '@/pages/SupikiRanchPage'
 import { TopPage } from '@/pages/TopPage'
@@ -16,7 +15,6 @@ function App() {
         <Route path="/grid" element={<PixelGridPage />} />
         <Route path="/supiki" element={<SupikiRanchPage />} />
         <Route path="/image" element={<ImageTransformPage />} />
-        <Route path="/markdown" element={<MarkItDownPage />} />
       </Routes>
       <MenuButton />
     </HashRouter>
