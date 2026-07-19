@@ -1,39 +1,18 @@
 .supiki-model {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100px;
   height: 100px;
   cursor: pointer;
   z-index: var(--supiki-layer);
-  transition: transform 0.3s ease;
 }
 
 .supiki-model__image {
   width: 100%;
   height: auto;
-}
-
-/* 移動中のみ歩行アニメーションを再生 */
-.supiki-model__image--walking {
-  animation: supiki-model--walking 1.5s ease-in-out infinite;
-}
-
-/* 歩行アニメーション - 縦に縮めたり戻したりして移動を再現 */
-@keyframes supiki-model--walking {
-  0% {
-    transform: scaleY(1);
-  }
-  25% {
-    transform: scaleY(0.85);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-  75% {
-    transform: scaleY(0.85);
-  }
-  100% {
-    transform: scaleY(1);
-  }
+  display: block;
+  transform-origin: bottom center;
 }
 
 .supiki-model:hover {
