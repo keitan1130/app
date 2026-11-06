@@ -9,6 +9,21 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     base: env.VITE_BASE_URL || '/',
+    build: {
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [
+              {
+                // The 3D route loads Three.js on demand; cache its core separately.
+                name: 'three-core',
+                test: /node_modules[\\/]three[\\/]build[\\/]three\.core\.js/,
+              },
+            ],
+          },
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(import.meta.dirname, './src'),

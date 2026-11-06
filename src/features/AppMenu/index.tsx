@@ -37,6 +37,7 @@ export const AppMenu: React.FC<AppMenuProps> = ({ isOpen, onClose, className }) 
     { id: 'grid', label: '方眼ペイント', action: () => navigate('/grid') },
     { id: 'image', label: '画像変換', action: () => navigate('/image') },
     { id: 'supiki', label: 'スピキ牧場', action: () => navigate('/supiki') },
+    { id: 'playground', label: 'スピキのあそびば', action: () => navigate('/playground') },
     { id: 'theme', label: `テーマ:${theme === 'dark' ? 'ダーク' : 'ライト'}`, action: toggleTheme },
     {
       id: 'toggle-supiki',
