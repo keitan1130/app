@@ -1,7 +1,8 @@
 # Backend Specification for Shared Pixel Grid
 
-This document defines the backend contract for the frontend in this repository.
-Target use case: one globally shared 32x32 pixel board.
+This document preserves the former backend contract for a globally shared 32x32 pixel board.
+The current frontend saves the board in localStorage and does not use these endpoints.
+All currently routed screens work without this backend.
 
 ## 1. Scope and Goals
 

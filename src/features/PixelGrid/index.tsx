@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { ColorPickerPanel } from './ColorPickerPanel'
 import styles from './index.module.css'
-import { usePixelGridSync } from './usePixelGridSync'
+import { usePixelGridStorage } from './usePixelGridStorage'
 
 export const PixelGrid = () => {
-  const { boardStyle, cells, errorMessage, paintCell, syncState, version } = usePixelGridSync()
+  const { boardStyle, cells, errorMessage, paintCell, saveState } = usePixelGridStorage()
   const [selectedColor, setSelectedColor] = useState('#000000')
   const [colorInput, setColorInput] = useState('000000')
   const [isPickerOpen, setIsPickerOpen] = useState(false)
@@ -33,11 +33,10 @@ export const PixelGrid = () => {
             onToggle={() => setIsPickerOpen((prev) => !prev)}
           />
 
-          <p className={styles.syncStatus} role="status" aria-live="polite">
-            {syncState === 'loading' && '同期中...'}
-            {syncState === 'saving' && '保存中...'}
-            {syncState === 'idle' && `version: ${version}`}
-            {syncState === 'error' && (errorMessage || '通信エラー')}
+          <p className={styles.saveStatus} role="status" aria-live="polite">
+            {saveState === 'idle' && 'このブラウザに自動保存'}
+            {saveState === 'saved' && 'このブラウザに保存済み'}
+            {saveState === 'error' && errorMessage}
           </p>
         </aside>
 
@@ -49,7 +48,7 @@ export const PixelGrid = () => {
               key={index}
               className={styles.cell}
               style={{ backgroundColor: color }}
-              onClick={() => void paintCell(index, selectedColor)}
+              onClick={() => paintCell(index, selectedColor)}
               aria-label={`セル ${index + 1}`}
             />
           ))}
