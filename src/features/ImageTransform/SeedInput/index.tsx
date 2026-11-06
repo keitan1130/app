@@ -26,7 +26,7 @@ export const SeedInput = ({ seed, onSeedChange, onGenerateRandom }: SeedInputPro
           placeholder="シード値を入力"
           className={styles.input}
         />
-        <button onClick={onGenerateRandom} className={styles.randomButton}>
+        <button type="button" onClick={onGenerateRandom} className={styles.randomButton}>
           ランダム生成
         </button>
       </div>

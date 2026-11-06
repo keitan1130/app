@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import type React from 'react'
+import { useEffect, useRef } from 'react'
 import styles from './index.module.css'
 
 type MenuPopupProps = {
@@ -58,6 +59,7 @@ export const MenuPopup: React.FC<MenuPopupProps> = ({
       }`}
       aria-hidden={!isOpen}
     >
+      {/* biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: menuitem を含む ARIA メニューのリストとして使用する。 */}
       <ul className={`${styles.list} ${listClassName ?? ''}`} role="menu">
         {children}
       </ul>

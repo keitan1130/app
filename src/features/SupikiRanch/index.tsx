@@ -1,5 +1,5 @@
-import sougen from '@/assets/sougen.png'
 import { useEffect } from 'react'
+import sougen from '@/assets/sougen.png'
 import styles from './index.module.css'
 
 export const SupikiRanch = () => {
@@ -15,6 +15,7 @@ export const SupikiRanch = () => {
     <div
       className={styles.root}
       style={{ backgroundImage: `url(${sougen})` }}
+      role="img"
       aria-label="背景画像"
     />
   )

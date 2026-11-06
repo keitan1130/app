@@ -41,24 +41,19 @@ export const PixelGrid = () => {
           </p>
         </aside>
 
-        <div
-          className={styles.board}
-          style={boardStyle}
-          role="grid"
-          aria-label="方眼ペイントボード"
-        >
+        <section className={styles.board} style={boardStyle} aria-label="方眼ペイントボード">
           {cells.map((color, index) => (
             <button
               type="button"
+              // biome-ignore lint/suspicious/noArrayIndexKey: セルの固定座標をキーとし、並べ替えや追加削除は行わない。
               key={index}
-              role="gridcell"
               className={styles.cell}
               style={{ backgroundColor: color }}
               onClick={() => void paintCell(index, selectedColor)}
               aria-label={`セル ${index + 1}`}
             />
           ))}
-        </div>
+        </section>
       </div>
     </div>
   )

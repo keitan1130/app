@@ -1,7 +1,7 @@
+import { motion } from 'motion/react'
+import type React from 'react'
 import rareImage from '@/assets/C3supiki.png'
 import normalImage from '@/assets/supiki.png'
-import { motion } from 'motion/react'
-import React from 'react'
 import type { SupikiState } from '../SupikiProcess/types'
 import styles from './index.module.css'
 

@@ -2,10 +2,13 @@
 
 ## 起動方法
 
+Node.js 26 と npm 12 を使用します。Node.js のバージョンは `.node-version` で管理します。
+npm のバージョンは `package.json` の `packageManager` に合わせてください。
+
 1. パッケージをインストール
 
 ```
-npm i
+npm ci
 ```
 
 2. ローカルサーバーを起動
@@ -26,6 +29,24 @@ npm run dev
 
 - フレームワーク:Vite + React
 - ルーティング:react router dom
+
+## 整形・チェック
+
+整形、Lint、import の整理には Biome を使用します。VS Code の推奨拡張機能も Biome です。
+対象は JavaScript / TypeScript / CSS / JSON / HTML / Markdown / YAML です。
+HTML は Biome の実験的な整形機能を有効にしています。
+生成物・依存ディレクトリ・ロックファイル・大容量の favicon.svg はチェック対象外です。
+
+```sh
+npm run check        # 整形・Lint・import 順序の確認（警告もエラーとして扱う）
+npm run check:fix    # 安全に自動修正できる問題を修正
+npm run format      # 整形のみ実行
+npm run build       # TypeScript の型チェックと本番ビルド
+```
+
+コミット前にも Husky と lint-staged でステージ済みファイルをチェック・修正します。
+GitHub Actions は main への push と pull request 時に `npm ci`、`npm run check`、
+`npm run build` を実行します。GitHub Pages への公開は行いません。
 
 ## 開発の始め方
 

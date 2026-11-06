@@ -6,49 +6,38 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . --max-warnings=0",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "check": "biome check . --error-on-warnings",
+    "check:fix": "biome check --write .",
+    "lint": "biome lint . --error-on-warnings",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "preview": "vite preview",
     "prepare": "husky"
   },
   "dependencies": {
-    "@types/react-router-dom": "^5.3.3",
-    "motion": "^12.42.2",
-    "react": "^19.2.0",
-    "react-colorful": "^5.6.1",
-    "react-dom": "^19.2.0",
-    "react-router-dom": "^7.12.0"
+    "motion": "^14.10.1",
+    "react": "^19.3.1",
+    "react-colorful": "^5.8.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^9.39.1",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
+    "@biomejs/biome": "2.6.6",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.7",
-    "prettier": "^3.5.3",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.4"
+    "lint-staged": "^17.6.0",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.6"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
+    "*": "biome check --write --error-on-warnings --no-errors-on-unmatched --files-ignore-unknown=true"
   },
-  "allowScripts": {
-    "esbuild@0.28.1": true
-  }
+  "engines": {
+    "node": ">=26 <27",
+    "npm": ">=12 <13"
+  },
+  "packageManager": "npm@12.2.2"
 }

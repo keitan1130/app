@@ -1,5 +1,6 @@
+import type React from 'react'
+import { useEffect, useRef } from 'react'
 import supikiPng from '@/assets/supiki.png'
-import React, { useEffect, useRef } from 'react'
 import styles from './index.module.css'
 
 export const MouseSupiki: React.FC = () => {
