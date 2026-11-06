@@ -59,7 +59,7 @@
 }
 
 .toggleSwitch::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 3px;
   left: 3px;
@@ -108,6 +108,17 @@
 }
 .columnTitle:hover {
   background-color: var(--background-secondary-color);
+}
+
+.scrollButton {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
 }
 
 .cardList {

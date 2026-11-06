@@ -1,5 +1,5 @@
-import { ImageDropzone, ImageOutput } from '@/shared/ui'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ImageDropzone, ImageOutput } from '@/shared/ui'
 import { ConvertAction } from './components/ConvertAction'
 import { DotSizeControl } from './components/DotSizeControl'
 import { EffectSelector } from './components/EffectSelector'

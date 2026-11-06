@@ -33,7 +33,7 @@ export const ImageOutput = ({
         )}
       </div>
       {outputUrl && (
-        <button onClick={onDownload} className={styles.downloadButton}>
+        <button type="button" onClick={onDownload} className={styles.downloadButton}>
           {downloadLabel}
         </button>
       )}

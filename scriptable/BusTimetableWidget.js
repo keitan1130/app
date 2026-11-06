@@ -98,19 +98,6 @@ function formatTimeShort(seconds) {
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
 }
 
-// 残り時間をHH:MM:SS形式でフォーマット（マイナス対応）
-function formatRemaining(diffSeconds) {
-  const isOverdue = diffSeconds < 0
-  const absDiff = Math.abs(diffSeconds)
-
-  const hours = Math.floor(absDiff / 3600)
-  const minutes = Math.floor((absDiff % 3600) / 60)
-  const secs = absDiff % 60
-
-  const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-  return isOverdue ? `-${timeStr}` : timeStr
-}
-
 // 秒数から今日のDateオブジェクトを作成（isNextDayがtrueなら翌日）
 function secondsToDate(seconds, isNextDay = false) {
   const now = new Date()

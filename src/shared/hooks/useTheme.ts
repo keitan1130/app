@@ -89,7 +89,6 @@ const getTileOrder = (row: number, col: number, pattern: DelayPattern) => {
       const maxDist = Math.hypot(center, center)
       return 1 - normalize(dist, maxDist)
     }
-    case 'random':
     default:
       return Math.random()
   }

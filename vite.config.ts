@@ -1,26 +1,32 @@
+import path from 'node:path'
 import react from '@vitejs/plugin-react'
-import path from 'path'
 import { defineConfig, loadEnv } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const apiProxyTarget = env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   return {
     plugins: [react()],
     base: env.VITE_BASE_URL || '/',
-    server: {
-      proxy: {
-        '/api': {
-          target: apiProxyTarget,
-          changeOrigin: true,
+    build: {
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [
+              {
+                // The 3D route loads Three.js on demand; cache its core separately.
+                name: 'three-core',
+                test: /node_modules[\\/]three[\\/]build[\\/]three\.core\.js/,
+              },
+            ],
+          },
         },
       },
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(import.meta.dirname, './src'),
       },
     },
   }

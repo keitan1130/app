@@ -38,12 +38,23 @@ export const InputSection = ({
     <div className={styles.inputSection}>
       <h3 className={styles.title}>入力ソース</h3>
       {inputMode === 'file' ? (
+        // biome-ignore lint/a11y/useSemanticElements: ファイル入力とファイル情報を含むため button 要素にはできない。
         <div
           className={`${styles.dropzone} ${isDragOver ? styles.dragOver : ''}`}
+          role="button"
+          tabIndex={0}
+          aria-label="入力ファイルを選択"
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
           onClick={onDropzoneClick}
+          onKeyDown={(event) => {
+            if (event.target !== event.currentTarget) return
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              onDropzoneClick()
+            }
+          }}
         >
           {selectedFile ? (
             <div className={styles.fileCard}>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import { SupikiModel } from './SupikiModel'
 import type { SupikiState } from './SupikiProcess/types'
 import { createInitialSupiki, useSupikiMovement } from './SupikiProcess/useSupikiMovement'

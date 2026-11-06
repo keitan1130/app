@@ -1,6 +1,7 @@
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import supiki from '@/assets/supiki.png'
 import { AppMenu } from '@/features/AppMenu'
-import React, { useEffect, useRef, useState } from 'react'
 import styles from './index.module.css'
 
 export const MenuButton: React.FC = () => {

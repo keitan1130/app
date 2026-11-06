@@ -1,5 +1,5 @@
-import { SeedInput } from '../SeedInput'
 import styles from '../index.module.css'
+import { SeedInput } from '../SeedInput'
 
 type XorSeedControlProps = {
   seed: string

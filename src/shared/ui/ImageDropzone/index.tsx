@@ -67,11 +67,22 @@ export const ImageDropzone = ({
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>{title}</h3>
+      {/* biome-ignore lint/a11y/useSemanticElements: ファイル入力とプレビューを含むため button 要素にはできない。 */}
       <div
         className={styles.dropzone}
+        role="button"
+        tabIndex={0}
+        aria-label={title}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         onClick={handleClick}
+        onKeyDown={(event) => {
+          if (event.target !== event.currentTarget) return
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault()
+            handleClick()
+          }
+        }}
       >
         {previewUrl ? (
           <img src={previewUrl} alt="Preview" className={styles.preview} />

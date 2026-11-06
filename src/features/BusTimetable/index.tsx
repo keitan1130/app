@@ -146,12 +146,8 @@ export const BusTimetable = () => {
     [nextIizukaIndex, nextKyutechIndex]
   )
 
-  // 初回マウント時に次のバスにスクロール
-  useEffect(() => {
-    scrollToNextBus('iizuka')
-    scrollToNextBus('kyutech')
-  }, [scrollToNextBus])
-
+  // 初回表示・次便の変更・減便表示の切り替え時にスクロールする。
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 減便表示で DOM が変化するため、次便が同じ場合も再スクロールする。
   useEffect(() => {
     scrollToNextBus('iizuka')
     scrollToNextBus('kyutech')
@@ -178,8 +174,14 @@ export const BusTimetable = () => {
       <div className={styles.timetableWrapper}>
         {/* 新飯塚駅 → 九州工業大学 */}
         <div className={styles.column}>
-          <h2 className={styles.columnTitle} onClick={() => scrollToNextBus('iizuka')}>
-            新飯塚駅 → 九州工業大学
+          <h2 className={styles.columnTitle}>
+            <button
+              type="button"
+              className={styles.scrollButton}
+              onClick={() => scrollToNextBus('iizuka')}
+            >
+              新飯塚駅 → 九州工業大学
+            </button>
           </h2>
           <div className={styles.cardList} ref={iizukaListRef}>
             {filteredIizuka.map((bus) => {
@@ -206,8 +208,14 @@ export const BusTimetable = () => {
 
         {/* 九州工業大学 → 新飯塚駅 */}
         <div className={styles.column}>
-          <h2 className={styles.columnTitle} onClick={() => scrollToNextBus('kyutech')}>
-            九州工業大学 → 新飯塚駅
+          <h2 className={styles.columnTitle}>
+            <button
+              type="button"
+              className={styles.scrollButton}
+              onClick={() => scrollToNextBus('kyutech')}
+            >
+              九州工業大学 → 新飯塚駅
+            </button>
           </h2>
           <div className={styles.cardList} ref={kyutechListRef}>
             {filteredKyutech.map((bus) => {
